@@ -1,21 +1,21 @@
 import Weather from "../../app/weather/Weather";
-import Chat from "../../app/chat/Chat";
+import WeatherTest from "../../app/WeatherTest/WeatherTest";
 
 export const routes = [
     {
         id: 1,
         name: 'weather',
-        iconClass: 'Weather',
+        iconClass: 'weather',
         routeTo: '/',
-        component: Weather,
+        component: WeatherTest,
         permissionSection: true,
     },
-    {
-        id: 2,
-        name: 'chat',
-        iconClass: 'Chat',
-        routeTo: '/chat',
-        component: Chat,
-        permissionSection: true,
-    },
+    // {
+    //     id: 2,
+    //     name: 'Weather',
+    //     iconClass: 'Weather',
+    //     routeTo: '/weatherTest',
+    //     component: WeatherTest,
+    //     permissionSection: true,
+    // },
 ];

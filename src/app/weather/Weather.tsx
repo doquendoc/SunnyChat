@@ -1,5 +1,6 @@
 import * as React from 'react';
 import './Weather.scss';
+// @ts-ignore
 import ReactWeather, {useOpenWeather} from 'react-open-weather';
 
 const Weather = () => {
