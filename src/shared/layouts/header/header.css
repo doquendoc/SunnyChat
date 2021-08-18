@@ -1,0 +1,52 @@
+.icon-styled {
+    color: #3e3e3e;
+    font-size: 24px;
+}
+
+/*app logo*/
+.app-icon-styled {
+    margin-top: 8px;
+    color: #0000ff;;
+    font-size: 38px;
+}
+
+.logo-style {
+    color: #0000ff;;
+    font-weight: 500;
+}
+
+/**/
+
+.app-icon-store-style {
+    margin-top: 8px;
+    color: #55555d;
+    font-size: 25px;
+    margin-left: 20px;
+}
+
+.search-style {
+    text-align: end;
+    right: -4px;
+    top: -5px;
+}
+
+.avatar-style {
+    background-color: #3e423e !important;
+    cursor: pointer;
+}
+
+.ant-menu-item.ant-menu-item-only-child {
+    height: 54px;
+}
+
+.app-logo-header{
+    width: 166px;
+    margin-top: -11px;
+    margin-left: -17px;
+}
+
+.quick-option-header{
+    margin-top: -11px;
+    border-color: white;
+    font-weight: 500;
+}

@@ -1,0 +1,58 @@
+{
+  "login": {
+    "Welcome": "¡Bienvenido!",
+    "Email": "Correo",
+    "Password": "Contraseña",
+    "Sign in": "Entrar",
+    "Need help": "¿Necesitas ayuda? ",
+    "Enter here": "¡Entre aquí!",
+    "Your email": "tu@email.com",
+    "Authentication": "Autenticación",
+    "Authentication error": "Error de autenticación",
+    "Perfect": "Perfecto!!!",
+    "Welcome Ad": "Bienvenido! Estás listo para comenzar a trabajar con Ad-WebManager."
+  },
+  "header": {
+    "Search": "Buscar...",
+    "Hello": "Hola",
+    "Login as": "Autenticado como",
+    "Task": "Tareas",
+    "Profile": "Perfil",
+    "Logout": "Salir"
+  },
+  "language": {
+    "Language": "Idioma",
+    "English": "Inglés",
+    "Spanish": "Español",
+    "Choose description": "Elige el idioma en que quieres usar AD.",
+    "Working language": "Estamos trabajando en más lenguajes para.",
+    "Keyboard layout": "Distribución del teclado",
+    "Select a language": "Seleccione un idioma"
+  },
+  "options": {
+    "Options": "Opciones",
+    "Themes": "Temas",
+    "Language": "Idioma",
+    "Notifications": "Notificaciones",
+    "Advanced": "Avanzado"
+  },
+  "theme": {
+    "Change theme": "Cambie la apariencia de AD para todo el sistema.",
+    "Light Mode": "Modo claro",
+    "Dark Mode": "Modo Oscuro",
+    "Working theme": "Estamos trabajndo en mas temas para"
+  },
+  "sider": {
+    "Home": "Inicio",
+    "Users": "Usuarios",
+    "Security Groups": "Grupos de Seguridad",
+    "Directory Tree": "Arbol del Directorio",
+    "Company description": "Estás en un proyecto gestionado por la compañía."
+  },
+  "home": {
+    "Pending design": "Pendiente de diseños de componentes visuales.",
+    "Home description": "Mediante AD le permitimos crear una Infraestructura de Gestión de Recursos Centralizada: cuentas de usuarios, equipos, privilegios o permisos en nuestra empresa.",
+    "Getting Started": "Comenzar",
+    "Coming Soon": "Proximamente..."
+  }
+}

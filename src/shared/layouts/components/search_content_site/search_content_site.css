@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@variants dark {
+    .hd-input input {
+        border-radius: 2px !important;
+    }
+
+    .hd-input-d input {
+        border-radius: 2px !important;
+        background-color: #0e566c !important;
+        color: #fff !important;
+    }
+
+    .hd-input-d input::placeholder{
+        color: #c9cacb !important;
+    }
+
+    .hd-input-d-focus input::placeholder{
+        color: #a0a0a0 !important;
+    }
+
+    .hd-input-d i {
+        color: #e5e7eb !important;
+    }
+}
+
+.certain-category-search-dropdown .ant-select-dropdown-menu-item-group-title {
+    color: #666;
+    font-weight: bold;
+}
+
+.certain-category-search-dropdown .ant-select-dropdown-menu-item-group {
+    border-bottom: 1px solid #f6f6f6;
+}
+
+.certain-category-search-dropdown .ant-select-dropdown-menu-item {
+    padding-left: 16px;
+}
+
+.certain-category-search-dropdown .ant-select-dropdown-menu-item.show-all {
+    text-align: center;
+    cursor: default;
+}
+
+.certain-category-search-dropdown .ant-select-dropdown-menu {
+    max-height: 300px;
+}

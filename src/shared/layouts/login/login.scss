@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
+
+.font-family-karla {
+    font-family: karla;
+}
+
+.ui.loader:after {
+    border-color: #1d4ed8 transparent transparent !important;
+}
+
+.ui.loader:before {
+    border: 0.2em solid rgb(197 96 238) !important;
+}
+
+.ui.loader {
+    top:87%;
+    left: 25% !important;
+}

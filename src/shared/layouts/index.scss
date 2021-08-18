@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@variants dark {
+    .bg-slack-content {
+        background-color: rgb(26 29 33);
+    }
+    .border-b-slack {
+        border-bottom: 1px solid rgb(255 255 255 / 20%);
+    }
+    .alert-bg-slack {
+        background-color: rgb(31 41 55);
+    }
+    .text-slack {
+        color: rgb(175 177 179);
+    }
+    .bg-slack{
+        background-color: rgb(29 34 41);
+    }
+    .border-divider{
+        border-top-color: rgb(255 255 255 / 20%) !important;
+    }
+    .sid-resize-button-dark {
+        background: rgb(29 34 41) !important;
+        border-color: rgb(29 34 41) !important;
+        color: rgb(175 177 179);
+    }
+    .sid-resize-button-dark:hover {
+        background: #2563eb !important;
+        border-color: #2563eb !important;
+        color: #ffffff !important;
+        box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 2%) !important;
+    }
+
+    .sid-resize-button-dark:focus {
+        background: #2563eb !important;
+        border-color: #2563eb !important;
+        color: #ffffff !important;
+    }
+
+    .border-r-slack {
+        border-right: 1px solid rgb(255 255 255 / 20%);
+    }
+}
+
+.motion-effect {
+    visibility: visible;
+    transition: opacity 2s linear;
+    animation-name: moveInLeft;
+    animation-duration: 2s;
+    animation-timing-function: ease-out
+}
+
+@keyframes moveInLeft {
+    0% {
+        opacity: 0;
+    }
+    80% {
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

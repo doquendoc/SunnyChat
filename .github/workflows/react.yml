@@ -1,0 +1,80 @@
+name: AD-WebManager-Frontend
+#poner esto e una consola para saber el id del grupos
+#curl https://api.telegram.org/bot1685650366:AAFdkTOnmganj5YjcgPZeNDVlHg2n0cTn8g/getUpdates
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+      TELEGRAM_TO: -455583338
+      TELEGRAM_TOKEN: 1685650366:AAFdkTOnmganj5YjcgPZeNDVlHg2n0cTn8g
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: init notify
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ env.TELEGRAM_TO }}
+        token: ${{ env.TELEGRAM_TOKEN }}
+        message: |
+          The following events will be executed:
+          - Cache dependencies
+          - Install dependencies
+          - Quality check
+          - Build project
+          CI event is running ...
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Cache dependencies notify
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ env.TELEGRAM_TO }}
+        token: ${{ env.TELEGRAM_TOKEN }}
+        message: |
+          Loading Cache and installing dependencies....
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: |
+          **/node_modules
+        key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+    - name: Install dependencies
+      id: install-dependencies
+      run: yarn install --ignore-engines
+
+    - name: Install dependencies notify
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ env.TELEGRAM_TO }}
+        token: ${{ env.TELEGRAM_TOKEN }}
+        message: |
+          Deploying project...
+
+    - name: Build project
+      id: build-project
+      run: yarn build
+
+    - name: end notify
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ env.TELEGRAM_TO }}
+        token: ${{ env.TELEGRAM_TOKEN }}
+        message: |
+          The following events have been executed successfully:
+          - Cache dependencies
+          - Install dependencies
+          - Quality check
+          - Build project

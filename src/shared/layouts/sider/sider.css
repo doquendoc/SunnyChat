@@ -1,0 +1,175 @@
+.seder-menu-style {
+    background: #ffffff00 !important;
+    height: 100%;
+    position: fixed !important;
+    left: 0px;
+    z-index: 1;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding: 65px 0px;
+    font-weight: 500;
+}
+
+.ant-layout-sider-children {
+    display: flex;
+}
+
+.menu-style {
+    min-width: 100px !important;
+    max-width: 330px !important;
+    margin-top: -9px;
+    background: #f4f5f7 !important;
+    padding: 44px 10px !important;
+    border-right: #e8e9eb 1px solid;
+    height: 100vh;
+}
+
+.app-sidebar-resizer {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 3px;
+    justify-self: flex-end;
+    cursor: col-resize;
+    resize: horizontal;
+    height: 100vh;
+    margin-top: -10px;
+}
+
+.app-sidebar-resizer:hover {
+    width: 3px;
+    background: #1890ff;
+}
+
+
+/* inner sidebar*/
+.ant-menu-submenu > .ant-menu {
+    background-color: #f5f5f5 !important;
+}
+
+.seder-menu-style span {
+    font-weight: inherit;
+}
+
+.tag-waiting {
+    font-size: 12px;
+    border-radius: 0.3em !important;
+    margin-left: 8px !important;
+}
+
+.menu-style-inner {
+    border-right: 0;
+    background: #f4f5f7 !important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+@media (min-height: 625px) {
+    .menu-style-inner {
+        height: 325px;
+    }
+}
+
+@media (min-height: 570px) and (max-height: 600px) {
+    .menu-style-inner {
+        height: 200px;
+    }
+}
+
+@media (min-height: 501px) and (max-height: 570px) {
+    .menu-style-inner {
+        height: 280px;
+    }
+}
+
+@media (min-height: 450px) and (max-height: 500px) {
+    .menu-style-inner {
+        height: 190px;
+    }
+}
+
+@media (min-height: 400px) and (max-height: 450px) {
+    .menu-style-inner {
+        height: 140px;
+    }
+}
+
+@media (min-height: 340px) and (max-height: 400px) {
+    .menu-style-inner {
+        height: 90px;
+    }
+}
+
+.disable-scroll {
+    overflow-y: hidden;
+}
+
+.ant-menu-item-selected {
+    color: #29292a;
+}
+
+.ant-menu-submenu-selected {
+    color: #29292a;
+}
+
+.sid-main-divider {
+    margin-top: 10px !important;
+    margin-bottom: 7px !important;
+}
+
+.ant-menu-item-selected {
+    background-color: rgba(29, 9, 27, 0) !important;
+}
+
+.ant-menu-light .ant-menu-item:hover, .ant-menu-light .ant-menu-item-active, .ant-menu-light .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open, .ant-menu-light .ant-menu-submenu-active, .ant-menu-light .ant-menu-submenu-title:hover {
+    color: #383737 !important;
+}
+
+.icon-style-side {
+    color: #55555d;
+    font-size: 18px !important;
+}
+
+.icon-institution {
+    color: #55555d;
+    font-size: 25px !important;
+}
+
+.sid-resize-button {
+    background: #f4f5f7 !important;
+    border-color: #f4f5f7 !important;
+}
+
+.sid-resize-button:hover {
+    background: #2563eb !important;
+    border-color: #2563eb !important;
+    color: #ffffff !important;
+    box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 2%) !important;
+}
+
+.sid-resize-button:focus {
+    background: #2563eb !important;
+    border-color: #2563eb !important;
+    color: #ffffff !important;
+}
+
+i.large.icon, i.large.icons {
+    font-size: 1.5em !important;
+    margin: -1px !important;
+}
+
+i.big.icon, i.big.icons {
+    margin-left: -6px !important;
+    font-size: 1.7em !important;
+    line-height: 20px !important;
+}
+
+.sid-footer-text {
+    margin: 0 30px;
+    text-align: center;
+    font-size: 12px;
+    color: #4b504e;
+}
+
+.ant-menu-inline.ant-menu-root .ant-menu-item > .ant-menu-title-content, .ant-menu-inline.ant-menu-root .ant-menu-submenu-title > .ant-menu-title-content {
+    font-weight: 700 !important;
+}
