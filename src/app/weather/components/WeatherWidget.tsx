@@ -1,38 +1,38 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import moment from 'moment';
-import styled from 'styled-components';
-import WeatherBannerTab from './WeatherBannerTab';
-import MiniWeatherCard from './MiniWeatherCard';
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import moment from 'moment'
+import styled from 'styled-components'
+import WeatherBannerTab from './WeatherBannerTab'
+import MiniWeatherCard from './MiniWeatherCard'
 
 const WeatherWidget = ({ config, forecast }: any) => {
-  const [forecastIdx, setForecastIdx] = useState(0);
+  const [forecastIdx, setForecastIdx] = useState(0)
 
   if (forecast !== undefined && forecast.length > 0) {
-    let firstMomentOfDay: any;
-    let forecastOfDay: any = [];
-    const forecastOfDayList: any = [];
+    let firstMomentOfDay: any
+    let forecastOfDay: any = []
+    const forecastOfDayList: any = []
     /* eslint-disable no-param-reassign */
     forecast.forEach((item: any, index: any) => {
       if (firstMomentOfDay === undefined) {
-        firstMomentOfDay = moment.unix(item.dt);
-        forecast[index].moment = firstMomentOfDay;
-        forecastOfDay.push(item);
+        firstMomentOfDay = moment.unix(item.dt)
+        forecast[index].moment = firstMomentOfDay
+        forecastOfDay.push(item)
       } else {
-        const currentMoment = moment.unix(item.dt);
-        forecast[index].moment = currentMoment;
+        const currentMoment = moment.unix(item.dt)
+        forecast[index].moment = currentMoment
         if (firstMomentOfDay.isSame(currentMoment, 'day')) {
-          forecastOfDay.push(item);
+          forecastOfDay.push(item)
         } else {
-          forecastOfDayList.push(forecastOfDay);
-          forecastOfDay = [];
-          forecastOfDay.push(item);
-          firstMomentOfDay = currentMoment;
+          forecastOfDayList.push(forecastOfDay)
+          forecastOfDay = []
+          forecastOfDay.push(item)
+          firstMomentOfDay = currentMoment
         }
       }
-    });
+    })
     /* eslint-enable no-param-reassign */
-    const forecastList = forecastOfDayList;
+    const forecastList = forecastOfDayList
     return (
       <ContentContainer>
         <WeatherBannerTab
@@ -80,14 +80,14 @@ const WeatherWidget = ({ config, forecast }: any) => {
           />
         </Next5Container>
       </ContentContainer>
-    );
+    )
   }
   return (
     <div>
       <h3>No forecast data available!</h3>
     </div>
-  );
-};
+  )
+}
 
 // WeatherWidget.defaultProps = {
 //   config: PropTypes.arrayOf({
@@ -116,7 +116,7 @@ WeatherWidget.propTypes = {
     locale: PropTypes.string,
     onLocationClick: PropTypes.func,
   }),
-};
+}
 
 const ContentContainer = styled.div`
   display: block;
@@ -125,13 +125,13 @@ const ContentContainer = styled.div`
   border: 1px solid #dddddd;
   box-shadow: 3px 3px 3px #aaaaaa;
   padding: 1rem 1rem;
-`;
+`
 
 const Next5Container = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 1rem;
   justify-content: space-around;
-`;
+`
 
-export default WeatherWidget;
+export default WeatherWidget
