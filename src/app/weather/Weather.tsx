@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import './WeatherTest.scss'
+import './Weather.scss'
 
 import WeatherWidget from './components/WeatherWidget'
 // mock data for testing without API call
