@@ -23,7 +23,7 @@ const AppLayout = () => {
     const login = useLogin();
     const [query, setQuery] = useQueryParams({lang: StringParam});
 
-    const [{collapsed, visibleSettings }, setOptionLayout] = useState<ILayoutState>({
+    const [{collapsed, visibleSettings}, setOptionLayout] = useState<ILayoutState>({
         collapsed: false,
         visibleSettings: false,
     });

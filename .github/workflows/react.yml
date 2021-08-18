@@ -1,4 +1,4 @@
-name: AD-WebManager-Frontend
+name: SunnyChat
 #poner esto e una consola para saber el id del grupos
 #curl https://api.telegram.org/bot1685650366:AAFdkTOnmganj5YjcgPZeNDVlHg2n0cTn8g/getUpdates
 on:

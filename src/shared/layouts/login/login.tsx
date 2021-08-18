@@ -11,7 +11,7 @@ export const Login = () => {
     const {loginUser, loading} = useLogin();
 
     const handleLogin = () => {
-        loginUser && loginUser({email: 'admin@cujae.edu.cu', password: 'adminadmin'});
+        loginUser && loginUser({email: 'admin@sunnychat.cu', password: 'adminadmin'});
     }
 
     return (
@@ -33,7 +33,7 @@ export const Login = () => {
                                 disabled={loading}
                                 type="email"
                                 id="email"
-                                value="admin@cujae.edu.cu"
+                                value="admin@sunnychat.cu"
                                 placeholder={t('login.Your email')}
                                 className="shadow appearance-none border rounded w-full py-4 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"/>
                         </div>

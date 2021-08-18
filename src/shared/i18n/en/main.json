@@ -1,6 +1,6 @@
 {
   "login": {
-    "Welcome": "Welcome!",
+    "Welcome": "Welcome to SunnyChat!",
     "Email": "Email",
     "Password": "Password",
     "Sign in": "Sign in",
@@ -10,7 +10,7 @@
     "Authentication": "Authentication",
     "Authentication error": "Authentication error",
     "Perfect": "Perfect!!!",
-    "Welcome Ad": "Welcome! You are ready to work in Ad-WebManager."
+    "Welcome Ad": "Welcome! You are ready to work in SunnyChat."
   },
   "header": {
     "Search": "Search...",
@@ -24,7 +24,7 @@
     "Language": "Language",
     "English": "English",
     "Spanish": "Spanish",
-    "Choose description": "Choose the language you’d like to use with AD.",
+    "Choose description": "Choose the language you’d like to use with SC.",
     "Working language": "We are working on more languages to.",
     "Keyboard layout": "Keyboard layout",
     "Select a language": "Select a language"
@@ -37,21 +37,18 @@
     "Advanced": "Advanced"
   },
   "theme": {
-    "Change theme": "Change the appearance of AD across all of your workspaces.",
+    "Change theme": "Change the appearance of SC across all of your workspaces.",
     "Light Mode": "Light Mode",
     "Dark Mode": "Dark Mode",
     "Working theme": "We are working on more themes to"
   },
   "sider": {
-    "Home": "Home",
-    "Users": "Users",
-    "Security Groups": "Security Groups",
-    "Directory Tree": "Directory Tree",
+    "Weather": "Weather",
+    "Chat": "Chat",
     "Company description": "You are in a project managed by the company."
   },
   "home": {
     "Pending design": "Pending visual component designs.",
-    "Home description": "Through AD we allow you to create a Centralized Resource Management Infrastructure: user accounts, teams, privileges or permissions in our company.",
     "Getting Started": "Getting Started",
     "Coming Soon": "Coming Soon..."
   }

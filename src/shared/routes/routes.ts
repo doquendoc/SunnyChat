@@ -1,12 +1,21 @@
-import Home from "../../app/home/Home";
+import Weather from "../../app/weather/Weather";
+import Chat from "../../app/chat/Chat";
 
 export const routes = [
     {
         id: 1,
-        name: 'Home',
-        iconClass: 'home',
+        name: 'weather',
+        iconClass: 'Weather',
         routeTo: '/',
-        component: Home,
+        component: Weather,
+        permissionSection: true,
+    },
+    {
+        id: 2,
+        name: 'chat',
+        iconClass: 'Chat',
+        routeTo: '/chat',
+        component: Chat,
         permissionSection: true,
     },
 ];

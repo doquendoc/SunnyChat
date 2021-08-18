@@ -21,7 +21,7 @@ const useLoginProfile = (): IUseLogin => {
             setLogin({
                 isAuthenticated: true,
                 user: {
-                    email: 'admin@cujae.edu.cu',
+                    email: 'admin@sunnychat.cu',
                     username: 'superAdmin',
                     name: "Bob Esponja"
                 }
@@ -87,7 +87,7 @@ function findUser(credentials: ICrendentials): any {
 
 const AdUsers = [
     {
-        email: "admin@cujae.edu.cu",
+        email: "admin@sunnychat.cu",
         password: "adminadmin",
         token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJuYW1lIjoiYWRtaW4iLCJ1c2VyTmFtZSI6Ik9ybHkgTXVsZXJvIn0.hfMUhdkDfROjbOikoP84nYSepqseNS0bxFc1UDQBXL0"
     }

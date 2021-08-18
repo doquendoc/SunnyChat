@@ -30,7 +30,7 @@ export const Header = ({onLogout}: {onLogout?: ()=> void}) => {
         <Header className="!bg-white !h-16 !shadow-sm !px-px fixed w-full z-10 dark:!bg-gray-800 !border-b dark:!border-b-slack">
             <Row gutter={8}>
                 <Col xs={1} sm={4} md={4} lg={4} xl={3}>
-                    <ADIcon className='!-mt-14 !cursor-pointer'/>
+                    <ADIcon className='!mt-2 !cursor-pointer !align-top'/>
                 </Col>
                 <Col xs={23} sm={20} md={20} lg={20} xl={21} className='!pr-4'>
                     <Row justify="end" gutter={24}>

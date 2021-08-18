@@ -14,13 +14,16 @@
     display: flex;
 }
 
+.ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left {
+    border-right: 0px solid #f0f0f0;
+}
+
 .menu-style {
     min-width: 100px !important;
     max-width: 330px !important;
     margin-top: -9px;
     background: #f4f5f7 !important;
     padding: 44px 10px !important;
-    border-right: #e8e9eb 1px solid;
     height: 100vh;
 }
 
