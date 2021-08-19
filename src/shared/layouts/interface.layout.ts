@@ -4,7 +4,6 @@ export interface ILayoutState {
 }
 
 export interface ILayoutProvider {
-    isAuthenticated?: boolean
     collapsed?: boolean;
     visibleSettings?: boolean;
     setOptionLayout?: (options: ILayoutState) => void

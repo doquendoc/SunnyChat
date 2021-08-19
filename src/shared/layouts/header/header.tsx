@@ -9,22 +9,24 @@ import {ILayoutProvider} from "../interface.layout";
 import {AppLayoutContext} from "../index";
 import {useTranslation} from "react-i18next";
 import {useLogin} from "../../helpers/hooks/session.hooks";
+import {ISessionContext} from "../../providers/context/session.interface";
+import {SessionContext} from "../../providers/context/session.provider";
 
-export const Header = ({onLogout}: {onLogout?: ()=> void}) => {
+export const Header = () => {
     const { t } = useTranslation('main');
-    const login = useLogin();
+    const {user, logout}: any = useContext<ISessionContext>(SessionContext);
     const {setOptionLayout}: any = useContext<ILayoutProvider>(AppLayoutContext);
     const {xs} = useResponsive();
     const {Header} = Layout;
     const options = [
         {
             key: 'user',
-            text: (<span>{t('header.Login as')}<strong> {login?.user?.name}</strong></span>),
+            text: (<span>{t('header.Login as')}<strong> {user?.username}</strong></span>),
             disabled: true,
         },
         {key: 'help', text: t('header.Task'), icon: 'calendar'},
         {key: 'settings', text: t('header.Profile'), icon: 'user'},
-        {key: 'sign-out', text: t('header.Logout'), icon: 'sign-out', onClick: onLogout},
+        {key: 'sign-out', text: t('header.Logout'), icon: 'sign-out', onClick: logout},
     ]
     return (
         <Header className="!bg-white !h-16 !shadow-sm !px-px fixed w-full z-10 dark:!bg-gray-800 !border-b dark:!border-b-slack">
@@ -61,7 +63,7 @@ export const Header = ({onLogout}: {onLogout?: ()=> void}) => {
                                         <Icon
                                             name='user'
                                             className='!-pl-5 !text-gray-600 dark:!text-slack'
-                                        /> {t('header.Hello')}, {login?.user?.name}
+                                        /> {t('header.Hello')}, {user?.name}
                                     </span>
                                 )}
                                 options={options}
