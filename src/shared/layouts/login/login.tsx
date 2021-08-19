@@ -1,17 +1,30 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import loginImage from '../../../assets/login-image.jpg'
 import {ADIcon} from "../../icons/app.icons";
 import {Loader} from "semantic-ui-react";
 import './login.scss';
 import {useTranslation} from "react-i18next";
-import {useLogin} from '../../helpers/hooks/session.hooks';
+import {SessionContext} from "../../providers/context/session.provider";
+import {ISessionContext} from "../../providers/context/session.interface";
+import {Button, Form, Input} from "antd";
+import {openNotificationWithIcon} from "../../helpers/message.helpers";
 
 export const Login = () => {
     const {t} = useTranslation('main');
-    const {loginUser, loading} = useLogin();
+    const {loginUser, loading}: any = useContext<ISessionContext>(SessionContext);
 
-    const handleLogin = () => {
-        loginUser && loginUser({email: 'admin@sunnychat.cu', password: 'adminadmin'});
+    const handleLogin = async ({email, password}: any) => {
+        try {
+           const response = await loginUser({email, password});
+            openNotificationWithIcon(
+                'success',
+                t('login.Perfect'),
+                `${t('header.Hello')} ${response.name}. ${t('login.Welcome Ad')}`,
+                'bottomRight'
+            );
+        } catch (e) {
+            openNotificationWithIcon('error', t('login.Authentication'), e.message);
+        }
     }
 
     return (
@@ -26,37 +39,53 @@ export const Login = () => {
                 <div
                     className="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
                     <p className="text-center text-4xl md:pt-8 font-bold">{t('login.Welcome')}</p>
-                    <form className="flex flex-col pt-3" onSubmit={(event)=>event.preventDefault()}>
-                        <div className="flex flex-col pt-4">
-                            <label htmlFor="email" className="text-lg font-bold mb-1">{t('login.Email')}</label>
-                            <input
-                                disabled={loading}
-                                type="email"
-                                id="email"
-                                value="admin@sunnychat.cu"
-                                placeholder={t('login.Your email')}
+                    <Form
+                        className="mt-10"
+                        name="basic"
+                        onFinish={handleLogin}
+                        layout="vertical"
+                    >
+                        <Form.Item
+                            initialValue='admin@sunnychat.cu'
+                            className="flex flex-col pt-4"
+                            label={<strong>Email</strong>}
+                            labelAlign='left'
+                            name="email"
+                            rules={[{required: true, message: t('login.Please input your username!')}]}
+                        >
+                            <Input
                                 className="shadow appearance-none border rounded w-full py-4 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"/>
-                        </div>
 
-                        <div className="flex flex-col pt-4">
-                            <label htmlFor="password" className="text-lg mb-1 font-bold">{t('login.Password')}</label>
-                            <input
-                                disabled={loading}
-                                type="password"
-                                id="password"
-                                value="adminadmin"
-                                placeholder={t('login.Password')}
+                        </Form.Item>
+
+                        <Form.Item
+                            initialValue='123456'
+                            className="flex flex-col"
+                            label={<strong>Password</strong>}
+                            labelAlign='left'
+                            name="password"
+                            rules={[{required: true, message: t('login.Please input your password!')}]}
+                        >
+                            <Input.Password
                                 className="shadow appearance-none border rounded w-full py-4 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"/>
-                        </div>
 
-                        <input type="submit" value={t('login.Sign in') as string} disabled={loading} onClick={handleLogin}
-                               className="bg-blue-700 text-white font-bold rounded text-lg hover:bg-blue-900 py-4 p-2 mt-8"/>
-                    </form>
+                        </Form.Item>
+
+                        <Form.Item className="flex flex-col">
+                            <Button
+                                disabled={loading}
+                                className="w-full h-14 bg-blue-700 text-white font-bold rounded text-lg hover:bg-blue-900"
+                                htmlType="submit">
+                                {t('login.Sign in')}
+                            </Button>
+                        </Form.Item>
+
+                    </Form>
                     <div className="text-center pt-12 pb-12">
                         <p>{t('login.Need help')}
-                        <a href="#" className="underline font-semibold">
-                            {t('login.Enter here')}
-                        </a>
+                            <a href="#" className="underline font-semibold">
+                                {t('login.Enter here')}
+                            </a>
                         </p>
                     </div>
                 </div>
