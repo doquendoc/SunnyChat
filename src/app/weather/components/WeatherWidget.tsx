@@ -122,9 +122,7 @@ const ContentContainer = styled.div`
   display: block;
   margin: 10px 5px;
   text-align: left;
-  border: 1px solid #dddddd;
-  box-shadow: 3px 3px 3px #aaaaaa;
-  padding: 1rem 1rem;
+  padding: 2rem 3rem;
 `
 
 const Next5Container = styled.div`

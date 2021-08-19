@@ -1,8 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import moment from 'moment';
-import styled from 'styled-components';
-import {iconCodeMapping} from './WeatherIcon';
+import React from 'react'
+import PropTypes from 'prop-types'
+import moment from 'moment'
+import styled from 'styled-components'
+import { iconCodeMapping } from './WeatherIcon'
+import { Card } from 'antd'
 
 /**
  * Render a primary display of the current forecast, including a date time, a weather icon,
@@ -14,11 +15,7 @@ import {iconCodeMapping} from './WeatherIcon';
  */
 const WeatherBanner = ({ forecastNow, unit, locale }: any) => (
   <div>
-    <h5>
-      {`${moment.unix(forecastNow.dt).locale(locale).format('dddd a h:mm')}, ${
-        forecastNow.desc
-      }`}
-    </h5>
+    <h5>{`${moment.unix(forecastNow.dt).locale(locale).format('dddd a h:mm')}, ${forecastNow.desc}`}</h5>
     <BannerContainer>
       <BannerIcon src={iconCodeMapping[forecastNow.icon]} />
       <Temperature>{Math.round(forecastNow.temp * 10) / 10}</Temperature>
@@ -27,30 +24,31 @@ const WeatherBanner = ({ forecastNow, unit, locale }: any) => (
         {unit === 'metric' ? 'C' : 'F'}
       </Unit>
       <div style={{ flex: '1' }} />
-      <DetailContainer>
-        <InfoText>
-          Clouds:
-          <b>{forecastNow.clouds}%</b>
-        </InfoText>
-        <InfoText>
-          Humidity: <b>{forecastNow.humidity}%</b>
-        </InfoText>
-        <InfoText>
-          Wind:{' '}
-          <b>
-            {forecastNow.wind}
-            {unit === 'metric' ? 'm/s' : 'mph'}
-          </b>
-        </InfoText>
-      </DetailContainer>
+      <Card className="shadow-2xl bg-gray-100 rounded-xl">
+        <DetailContainer>
+          <InfoText>
+            Clouds: <b>{forecastNow.clouds}%</b>
+          </InfoText>
+          <InfoText>
+            Humidity: <b>{forecastNow.humidity}%</b>
+          </InfoText>
+          <InfoText>
+            Wind:{' '}
+            <b>
+              {forecastNow.wind}
+              {unit === 'metric' ? 'm/s' : 'mph'}
+            </b>
+          </InfoText>
+        </DetailContainer>
+      </Card>
     </BannerContainer>
   </div>
-);
+)
 
 WeatherBanner.defaultProps = {
   unit: 'metric',
   locale: 'zh-tw',
-};
+}
 
 WeatherBanner.propTypes = {
   forecastNow: PropTypes.shape({
@@ -66,36 +64,37 @@ WeatherBanner.propTypes = {
   }).isRequired,
   unit: PropTypes.string,
   locale: PropTypes.string,
-};
+}
 
-export default WeatherBanner;
+export default WeatherBanner
 
 const BannerContainer = styled.div`
   display: flex;
   flex-direction: row;
-`;
+`
 
 const BannerIcon = styled.img`
   width: 5rem;
   height: 5rem;
-`;
+`
 
 const Temperature = styled.div`
   font-size: 3rem;
   margin-left: 0.5rem;
   font-weight: bold;
-`;
+`
 
 const Unit = styled.div`
   font-size: 1rem;
   margin-top: 0.7rem;
-`;
+`
 
 const DetailContainer = styled.div`
   display: flex;
   flex-direction: column;
-`;
+`
 
 const InfoText = styled.div`
-  text-align: right;
-`;
+  text-align: left;
+  font-size: 1.1rem;
+`
