@@ -50,6 +50,9 @@ const SAMPLE_CSS = `
       .control-fluid {
           padding: 0px !important;
       }`
+
+interface IProps {}
+
 export class SplineRangeArea extends React.Component<{}, {}> {
   private chartInstanceRange: ChartComponent
 

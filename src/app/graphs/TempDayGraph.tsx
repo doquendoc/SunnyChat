@@ -73,7 +73,13 @@ const SAMPLE_CSS = `
          }
      }`
 
-export class Spline extends React.Component<{}, {}> {
+interface IProps {
+  minList: string[]
+  maxList: string[]
+  avrgList: string[]
+}
+
+export class Spline extends React.Component<IProps, {}> {
   private chartInstance: ChartComponent
   render() {
     return (
@@ -119,7 +125,7 @@ export class Spline extends React.Component<{}, {}> {
         </AnnotationsDirective>
         <SeriesCollectionDirective>
           <SeriesDirective
-            dataSource={data1}
+            dataSource={this.props.maxList}
             xName="x"
             yName="y"
             width={2}
@@ -128,7 +134,7 @@ export class Spline extends React.Component<{}, {}> {
             marker={{ visible: true, width: 10, height: 10 }}
           ></SeriesDirective>
           <SeriesDirective
-            dataSource={data2}
+            dataSource={this.props.avrgList}
             xName="x"
             yName="y"
             width={2}
@@ -137,7 +143,7 @@ export class Spline extends React.Component<{}, {}> {
             marker={{ visible: true, width: 10, height: 10 }}
           ></SeriesDirective>
           <SeriesDirective
-            dataSource={data3}
+            dataSource={this.props.minList}
             xName="x"
             yName="y"
             width={2}

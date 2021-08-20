@@ -8,6 +8,7 @@ import testData from './testData.json'
 import { Spline } from '../graphs/TempDayGraph'
 import { Col, Row } from 'antd'
 import { SplineRangeArea } from '../graphs/TempHourGraph'
+import { statistics, tempPerDay, valuesForGraphs } from '../../shared/helpers/graphs.helpers'
 
 const OPEN_WEATHER_MAP_KEY = 'cbab533431ca82dd7835d5e55f9f9a9b'
 
@@ -31,6 +32,7 @@ const Weather = () => {
   const [cityIndex, setCityIndex] = useState<any>(city || 0)
   const [forecast, setForecast] = useState([])
   const [error, setError] = useState('')
+  const [dayTempList, setDayTempList] = useState([])
 
   const fetchWeatherAsync = async (cityId: any) => {
     try {
@@ -54,6 +56,8 @@ const Weather = () => {
         wind: data.wind.speed,
       }))
       setForecast(transformData)
+
+      setDayTempList(statistics(response))
     } catch (err) {
       if (OPEN_WEATHER_MAP_KEY.length === 0) {
         // Use mock data if no key
@@ -115,7 +119,11 @@ const Weather = () => {
           span={11}
           className="bg-white dark:bg-gray-800 p-2 mx-6 rounded-xl shadow-xl space-y-4 transition duration-500 ease-in-out transform hover:-translate-y-2 hover:scale-102"
         >
-          <Spline></Spline>
+          <Spline
+            minList={valuesForGraphs(dayTempList, 'min')}
+            maxList={valuesForGraphs(dayTempList, 'max')}
+            avrgList={valuesForGraphs(dayTempList, 'avrg')}
+          ></Spline>
         </Col>
         <Col
           span={11}
