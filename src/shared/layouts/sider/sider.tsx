@@ -43,7 +43,7 @@ export const Sider = () => {
                             className='!text-gray-600 !leading-12 dark:!text-slack'
                         />}
                 >
-                    <Link to='/'>
+                    <Link to='/weather'>
                         <span className='dark:!text-slack !font-sans !font-medium'>{t('sider.Weather')}</span>
                     </Link>
                 </Menu.Item>
@@ -92,7 +92,7 @@ export const Sider = () => {
                                         className='!text-gray-600 !leading-12 dark:!text-slack'/>}
                             style={{marginBottom: -10}}
                         >
-                            <Link to='/admin/connected'>
+                            <Link to='/chat'>
                                 <span className='dark:!text-slack !font-sans !font-medium'>{t('sider.User Connected')}</span>
                             </Link>
                         </Menu.Item>,

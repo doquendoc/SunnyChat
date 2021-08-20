@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@artsy/fresnel": "^1.7.0",
+    "ably": "^1.2.13",
     "antd": "^4.16.5",
     "axios": "^0.21.1",
     "dotenv": "^10.0.0",

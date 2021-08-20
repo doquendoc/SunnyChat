@@ -6,25 +6,25 @@ import {BrowserRouter as Router, BrowserRouter, Route, Switch} from "react-route
 import {routes} from "../shared/routes/routes";
 import {Login} from '../shared/layouts/login/login';
 import {QueryParamProvider} from "use-query-params";
-import {ILayoutProvider} from "../shared/layouts/interface.layout";
 import {SessionContext} from '../shared/providers/context/session.provider';
+import {ISessionContext} from "../shared/providers/context/session.interface";
 
 const App = () => {
-    const {isAuthenticated}: any = useContext<ILayoutProvider>(SessionContext);
+    const {isAuthenticated}: any = useContext<ISessionContext>(SessionContext);
     return (
         <BrowserRouter>
             <Router>
                 <QueryParamProvider ReactRouterRoute={Route}>
-                    <Switch>
-                        {routes.map(route => (
-                            isAuthenticated ?
-                                <AppLayout>
-                                    <Route exact path={route.routeTo} component={route.component}/>
-                                </AppLayout>
-                                :
-                                <Route exact path='/' component={Login}/>
-                        ))}
-                    </Switch>
+                    {isAuthenticated && <AppLayout>
+                        <Switch>
+                            {routes.map(route => (
+                                <Route exact path={route.routeTo} component={route.component}/>
+                            ))}
+                        </Switch>
+                    </AppLayout>}
+                    {!isAuthenticated && <Switch>
+                        <Route exact path='*' component={Login}/>
+                    </Switch>}
                 </QueryParamProvider>
             </Router>
         </BrowserRouter>
