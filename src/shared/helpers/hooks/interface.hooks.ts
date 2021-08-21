@@ -29,6 +29,9 @@ export interface IUser {
     username?: string;
     email?: string;
     name?: string;
+    password?: string;
+    token?: string;
+    roles?: string [];
 }
 
 export interface ICrendentials {

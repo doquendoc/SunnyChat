@@ -7,6 +7,8 @@
     "Need help": "Need help? ",
     "Enter here": "Enter here!",
     "Your email": "your@email.com",
+    "Please input your username!": "Please input your email!",
+    "Please input your password!": "Please input your password!",
     "Authentication": "Authentication",
     "Authentication error": "Authentication error",
     "Perfect": "Perfect!!!",
@@ -45,6 +47,10 @@
   "sider": {
     "Weather": "Weather",
     "Chat": "Chat",
+    "Register user": "Register user",
+    "User list": "User list",
+    "User Connected": "Online users",
+    "Broadcast Chat": "Broadcast Chat",
     "Company description": "You are in a project managed by the company."
   },
   "home": {

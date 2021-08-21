@@ -7,6 +7,8 @@
     "Need help": "¿Necesitas ayuda? ",
     "Enter here": "¡Entre aquí!",
     "Your email": "tu@email.com",
+    "Please input your username!": "Por favor, entre su correo electrónico!",
+    "Please input your password!": "Por favor, entre su contraseña!",
     "Authentication": "Autenticación",
     "Authentication error": "Error de autenticación",
     "Perfect": "Perfecto!!!",
@@ -45,6 +47,10 @@
   "sider": {
     "Weather": "Tiempo",
     "Chat": "Chat",
+    "Register user": "Registro de usuario",
+    "User list": "Lista de usuarios",
+    "User Connected": "Usuarios conectados",
+    "Broadcast Chat": "Chat de difusión",
     "Company description": "Estás en un proyecto gestionado por la compañía."
   },
   "home": {

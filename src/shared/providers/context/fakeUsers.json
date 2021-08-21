@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1",
+    "email": "admin@sunnychat.cu",
+    "password": "123456",
+    "name": "SuperAdmin",
+    "username": "sunnychat",
+    "roles": ["admin"],
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJlbWFpbCI6ImFkbWluQHN1bm55Y2hhdC5jdSIsInBhc3N3b3JkIjoiMTIzNDU2IiwibmFtZSI6IlN1cGVyQWRtaW4iLCJ1c2VybmFtZSI6InN1bm55Y2hhdCIsInJvbGVzIjpbImFkbWluIl19.hJBbG8mbcLMECFoF6DznWqgdUqo7QhEplT2d4KPPLdA"
+  },
+  {
+    "id": "2",
+    "email": "diana@sunnychat.cu",
+    "password": "123456",
+    "name": "Diana Oquendo",
+    "username": "doquendoc96",
+    "roles": ["client"],
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJlbWFpbCI6ImRpYW5hQHN1bm55Y2hhdC5jdSIsInBhc3N3b3JkIjoiMTIzNDU2IiwibmFtZSI6IkRpYW5hIE9xdWVuZG8iLCJ1c2VybmFtZSI6ImRvcXVlbmRvYzk2Iiwicm9sZXMiOlsiY2xpZW50Il19.uhh7bbsLEfru3SB6FVTuDynmdakHk_KQnQR_SKLgrwc"
+  }
+]
