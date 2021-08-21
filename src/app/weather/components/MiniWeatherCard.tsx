@@ -35,7 +35,9 @@ const MiniWeatherCard = ({ onClick, forecastList, isSelected, unit, locale }: an
       <Root>
         <Container isSelected={isSelected}>
           <Card
-            className={`rounded-xl shadow-lg ${cssProps ? '!bg-gray-100' : 'bg-white '}`}
+            className={`rounded-xl shadow-lg ${cssProps ? '!bg-gray-100' : 'bg-white '} ${
+              isSelected ? '!bg-gray-200 border-gray-300 border-double border-4' : 'border-white'
+            }`}
             onMouseEnter={e => setCssPops(true)}
             onMouseLeave={e => setCssPops(false)}
             onClick={onClick}
