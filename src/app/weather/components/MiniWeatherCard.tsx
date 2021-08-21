@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import styled from 'styled-components'
@@ -15,6 +15,7 @@ import { Card, Divider } from 'antd'
  * @param {string} locale locale for time formating
  */
 const MiniWeatherCard = ({ onClick, forecastList, isSelected, unit, locale }: any) => {
+  const [cssProps, setCssPops] = useState(false)
   if (forecastList !== undefined && forecastList.length > 0) {
     const first = forecastList[0]
     // find maximum and minimum temperature of the given list
@@ -34,8 +35,10 @@ const MiniWeatherCard = ({ onClick, forecastList, isSelected, unit, locale }: an
       <Root>
         <Container isSelected={isSelected}>
           <Card
-            className={`rounded-xl shadow-lg ${(props: any) => (isSelected ? '!bg-gray-200' : 'bg-gray-100 ')}`}
-            onMouseEnter={onClick}
+            className={`rounded-xl shadow-lg ${cssProps ? '!bg-gray-100' : 'bg-white '}`}
+            onMouseEnter={e => setCssPops(true)}
+            onMouseLeave={e => setCssPops(false)}
+            onClick={onClick}
           >
             <Text>{moment.unix(first.dt).locale(locale).format('dddd')}</Text>
             <Divider orientation="left">
@@ -99,8 +102,6 @@ const Container: any = styled.div`
   flex-direction: column;
   cursor: pointer;
   padding: 0.5rem 0.5rem;
-  border: ${(props: any) => (props.isSelected ? '3px solid #DDDDDD' : 'none')};
-  border-radius: ${(props: any) => (props.isSelected ? '5%' : 'none')};
 `
 
 const Text = styled.div`

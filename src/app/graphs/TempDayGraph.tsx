@@ -74,7 +74,7 @@ export class Spline extends React.Component<IProps, {}> {
           minorTickLines: { width: 0 },
         }}
         tooltip={{ enable: true }}
-        title="Temperature Graph"
+        title="Temperature Per Day"
         loaded={this.onChartLoad}
         animationComplete={this.animationComplete.bind(this)}
       >
