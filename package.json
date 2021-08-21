@@ -53,6 +53,10 @@
     "prettier": "^2.2.1",
     "tailwindcss": "2.1.1",
     "typescript": "4.2.4",
-    "vite": "2.2.1"
+    "vite": "2.2.1",
+    "@syncfusion/ej2-react-grids": "*",
+    "@syncfusion/ej2-react-charts": "*",
+    "@syncfusion/ej2-react-base": "*",
+    "@syncfusion/ej2-base": "*"
   }
 }

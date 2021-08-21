@@ -5,6 +5,10 @@ import './Weather.scss'
 import WeatherWidget from './components/WeatherWidget'
 // mock data for testing without API call
 import testData from './testData.json'
+import { Spline } from '../graphs/TempDayGraph'
+import { Col, Row } from 'antd'
+import { SplineInversed } from '../graphs/TempHourGraph'
+import { statistics, tempPerDay, valuesForDailyGraph, valuesForGraphs } from '../../shared/helpers/graphs.helpers'
 
 const OPEN_WEATHER_MAP_KEY = 'cbab533431ca82dd7835d5e55f9f9a9b'
 
@@ -28,6 +32,7 @@ const Weather = () => {
   const [cityIndex, setCityIndex] = useState<any>(city || 0)
   const [forecast, setForecast] = useState([])
   const [error, setError] = useState('')
+  const [dayTempList, setDayTempList] = useState([])
 
   const fetchWeatherAsync = async (cityId: any) => {
     try {
@@ -51,6 +56,8 @@ const Weather = () => {
         wind: data.wind.speed,
       }))
       setForecast(transformData)
+
+      setDayTempList(statistics(response))
     } catch (err) {
       if (OPEN_WEATHER_MAP_KEY.length === 0) {
         // Use mock data if no key
@@ -79,30 +86,52 @@ const Weather = () => {
 
   return (
     <div className="App">
-      {error.length === 0 ? (
-        <WeatherWidget
-          config={{
-            location: cities[cityIndex].label,
-            unit: 'metric',
-            locale: 'en_en',
-            onLocationClick: () => {
-              if (cityIndex + 1 >= cities.length) {
-                setCityIndex(0)
-                fetchWeatherAsync(cities[0].city)
-              } else {
-                setCityIndex(cityIndex + 1)
-                fetchWeatherAsync(cities[cityIndex + 1].city)
-              }
-            },
-          }}
-          forecast={forecast}
-        />
-      ) : (
-        <div>
-          <h2>Unable to fetch weather data!</h2>
-          <pre>{error}</pre>
-        </div>
-      )}
+      <Row className="!bg-white dark:bg-gray-800 shadow-md rounded-xl mb-10 transition duration-500 ease-in-out transform hover:-translate-y-2 hover:scale-102 mr-7">
+        <Col span={24} className="mx-2 pt-6 space-y-4">
+          {error.length === 0 ? (
+            <WeatherWidget
+              config={{
+                location: cities[cityIndex].label,
+                unit: 'metric',
+                locale: 'en_en',
+                onLocationClick: () => {
+                  if (cityIndex + 1 >= cities.length) {
+                    setCityIndex(0)
+                    fetchWeatherAsync(cities[0].city)
+                  } else {
+                    setCityIndex(cityIndex + 1)
+                    fetchWeatherAsync(cities[cityIndex + 1].city)
+                  }
+                },
+              }}
+              forecast={forecast}
+            />
+          ) : (
+            <div>
+              <h2>Unable to fetch weather data!</h2>
+              <pre>{error}</pre>
+            </div>
+          )}
+        </Col>
+      </Row>
+      <Row className="mb-6">
+        <Col
+          span={11}
+          className="bg-white dark:bg-gray-800 p-2 mx-6 rounded-xl shadow-xl space-y-4 transition duration-500 ease-in-out transform hover:-translate-y-2 hover:scale-102"
+        >
+          <Spline
+            minList={valuesForGraphs(dayTempList, 'min')}
+            maxList={valuesForGraphs(dayTempList, 'max')}
+            avrgList={valuesForGraphs(dayTempList, 'avrg')}
+          ></Spline>
+        </Col>
+        <Col
+          span={11}
+          className="bg-white dark:bg-gray-800 p-2 mx-6 rounded-xl shadow-xl space-y-4 transition duration-500 ease-in-out transform hover:-translate-y-2 hover:scale-102"
+        >
+          <SplineInversed avrgList={valuesForDailyGraph(dayTempList[0] || [])}></SplineInversed>
+        </Col>
+      </Row>
     </div>
   )
 }

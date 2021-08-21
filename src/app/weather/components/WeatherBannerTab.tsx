@@ -1,95 +1,80 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import 'react-tabs/style/react-tabs.css';
-import 'rc-slider/assets/index.css';
+import 'react-tabs/style/react-tabs.css'
+import 'rc-slider/assets/index.css'
 
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import moment from 'moment';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import Slider from 'rc-slider';
-import Tooltip from 'rc-tooltip';
-import styled from 'styled-components';
-import WeatherBanner from './WeatherBanner';
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import moment from 'moment'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import Slider from 'rc-slider'
+import Tooltip from 'rc-tooltip'
+import styled from 'styled-components'
+import WeatherBanner from './WeatherBanner'
+import { Card } from 'antd'
 
-const { Handle } = Slider;
+const { Handle } = Slider
 
-const WeatherBannerTab = ({
-  location,
-  forecastOfDay,
-  locale,
-  unit,
-  onLocationClick,
-}: any) => {
-  const [tabIndex, setTabIndex] = useState(0);
+const WeatherBannerTab = ({ location, forecastOfDay, locale, unit, onLocationClick }: any) => {
+  const [tabIndex, setTabIndex] = useState(0)
 
   const renderTabPanel = (item: any, displayUnit: any) => {
     return (
       <TabPanel key={`tp${item.dt}`}>
         <WeatherBanner forecastNow={item} unit={displayUnit} />
       </TabPanel>
-    );
-  };
+    )
+  }
 
   const renderTab = (item: any, displayLocale?: any) => {
-    const localeRegion = displayLocale || 'zh-tw';
+    const localeRegion = displayLocale || 'en_en'
     if (item) {
-      return (
-        <Tab key={`t${item.dt}`}>
-          {moment.unix(item.dt).locale(localeRegion).format('a h:mm')}
-        </Tab>
-      );
+      return <Tab key={`t${item.dt}`}>{moment.unix(item.dt).locale(localeRegion).format('a h:mm')}</Tab>
     }
-    return <div />;
-  };
+    return <div />
+  }
 
   const handle = (params: any) => {
-    const { value, dragging, index, ...restProps } = params;
+    const { value, dragging, index, ...restProps } = params
     return (
-      <Tooltip
-        prefixCls="rc-slider-tooltip"
-        overlay={value}
-        visible={dragging}
-        placement="top"
-        key={index}
-      >
+      <Tooltip prefixCls="rc-slider-tooltip" overlay={value} visible={dragging} placement="top" key={index}>
         <Handle value={value} {...restProps} />
       </Tooltip>
-    );
-  };
+    )
+  }
 
-  const marks: any = {};
+  const marks: any = {}
   forecastOfDay.forEach((item: any, index: any) => {
-    marks[index] = item.moment.locale(locale).format('a h:mm');
-  });
+    marks[index] = item.moment.locale(locale).format('a h:mm')
+  })
 
   return (
     <Container>
-      <LocationText onClick={onLocationClick}>{location}</LocationText>
-      <Tabs selectedIndex={tabIndex}>
-        {forecastOfDay.map((item: any) => renderTabPanel(item, unit))}
-        <TabList style={{ display: 'none' }}>
-          {forecastOfDay.map((item: any) => renderTab(item))}
-        </TabList>
-      </Tabs>
+      <Card className="shadow-md bg-gray-100 rounded-xl">
+        <LocationText onClick={onLocationClick}>{location}</LocationText>
+        <Tabs selectedIndex={tabIndex}>
+          {forecastOfDay.map((item: any) => renderTabPanel(item, unit))}
+          <TabList style={{ display: 'none' }}>{forecastOfDay.map((item: any) => renderTab(item))}</TabList>
+        </Tabs>
+      </Card>
       <TabContainer>
         <Slider
           min={0}
           max={forecastOfDay.length - 1}
           value={tabIndex}
           handle={handle}
-          onChange={(e) => setTabIndex(e)}
+          onChange={e => setTabIndex(e)}
           marks={marks}
         />
       </TabContainer>
     </Container>
-  );
-};
+  )
+}
 
 WeatherBannerTab.defaultProps = {
   unit: 'metric',
-  locale: 'zh-tw',
+  locale: 'en_en',
   forecastOfDay: [],
-};
+}
 
 WeatherBannerTab.propTypes = {
   location: PropTypes.string.isRequired,
@@ -108,22 +93,22 @@ WeatherBannerTab.propTypes = {
   ),
   unit: PropTypes.string,
   locale: PropTypes.string,
-   onLocationClick: PropTypes.func,
-};
+  onLocationClick: PropTypes.func,
+}
 
-export default WeatherBannerTab;
+export default WeatherBannerTab
 
 const LocationText = styled.div`
-  font-size: 2rem;
-`;
+  font-size: 3rem;
+`
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-`;
+`
 
 const TabContainer = styled.div`
   margin: 0.8rem 0.8rem;
   padding-bottom: 1.5rem;
-`;
+`
