@@ -7,8 +7,8 @@ import WeatherWidget from './components/WeatherWidget'
 import testData from './testData.json'
 import { Spline } from '../graphs/TempDayGraph'
 import { Col, Row } from 'antd'
-import { SplineRangeArea } from '../graphs/TempHourGraph'
-import { statistics, tempPerDay, valuesForGraphs } from '../../shared/helpers/graphs.helpers'
+import { SplineInversed } from '../graphs/TempHourGraph'
+import { statistics, tempPerDay, valuesForDailyGraph, valuesForGraphs } from '../../shared/helpers/graphs.helpers'
 
 const OPEN_WEATHER_MAP_KEY = 'cbab533431ca82dd7835d5e55f9f9a9b'
 
@@ -129,7 +129,7 @@ const Weather = () => {
           span={11}
           className="bg-white dark:bg-gray-800 p-2 mx-6 rounded-xl shadow-xl space-y-4 transition duration-500 ease-in-out transform hover:-translate-y-2 hover:scale-102"
         >
-          <SplineRangeArea></SplineRangeArea>
+          <SplineInversed avrgList={valuesForDailyGraph(dayTempList[0] || [])}></SplineInversed>
         </Col>
       </Row>
     </div>

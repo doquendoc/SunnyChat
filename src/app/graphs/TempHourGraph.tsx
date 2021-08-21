@@ -1,111 +1,81 @@
 /**
- * Sample for Range Area Series
+ * Sample for Inversed Spline series
  */
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import {
   ChartComponent,
   SeriesCollectionDirective,
-  DateTime,
   SeriesDirective,
   Inject,
+  Legend,
   Category,
-  SplineRangeAreaSeries,
+  SplineSeries,
+  Tooltip,
   ILoadedEventArgs,
   ChartTheme,
-  Tooltip,
-  Legend,
 } from '@syncfusion/ej2-react-charts'
-import { Browser } from '@syncfusion/ej2-base'
+import { Browser, EmitType } from '@syncfusion/ej2-base'
 
-export let data: any[] = [
-  { x: 'Jan', high: 14, low: 4 },
-  { x: 'Feb', high: 17, low: 7 },
-  { x: 'Mar', high: 20, low: 10 },
-  { x: 'Apr', high: 22, low: 12 },
-  { x: 'May', high: 20, low: 10 },
-  { x: 'Jun', high: 17, low: 7 },
-  { x: 'Jul', high: 15, low: 5 },
-  { x: 'Aug', high: 17, low: 7 },
-  { x: 'Sep', high: 20, low: 10 },
-  { x: 'Oct', high: 22, low: 12 },
-  { x: 'Nov', high: 20, low: 10 },
-  { x: 'Dec', high: 17, low: 7 },
-]
 export let data1: any[] = [
-  { x: 'Jan', high: 29, low: 19 },
-  { x: 'Feb', high: 32, low: 22 },
-  { x: 'Mar', high: 35, low: 25 },
-  { x: 'Apr', high: 37, low: 27 },
-  { x: 'May', high: 35, low: 25 },
-  { x: 'Jun', high: 32, low: 22 },
-  { x: 'Jul', high: 30, low: 20 },
-  { x: 'Aug', high: 32, low: 22 },
-  { x: 'Sep', high: 35, low: 25 },
-  { x: 'Oct', high: 37, low: 27 },
-  { x: 'Nov', high: 35, low: 25 },
-  { x: 'Dec', high: 32, low: 22 },
+  { x: 'Jan', y: -1 },
+  { x: 'Mar', y: 12 },
+  { x: 'Apr', y: 25 },
+  { x: 'Jun', y: 31 },
+  { x: 'Aug', y: 26 },
+  { x: 'Oct', y: 14 },
+  { x: 'Dec', y: 8 },
+]
+export let data2: any[] = [
+  { x: 'Jan', y: 7 },
+  { x: 'Mar', y: 2 },
+  { x: 'Apr', y: 13 },
+  { x: 'Jun', y: 21 },
+  { x: 'Aug', y: 26 },
+  { x: 'Oct', y: 10 },
+  { x: 'Dec', y: 0 },
 ]
 const SAMPLE_CSS = `
-      .control-fluid {
-          padding: 0px !important;
-      }`
+     .control-fluid {
+         padding: 0px !important;
+     }`
 
-interface IProps {}
+interface IProps {
+  avrgList?: string[]
+}
 
-export class SplineRangeArea extends React.Component<{}, {}> {
-  private chartInstanceRange: ChartComponent
-
+export class SplineInversed extends React.Component<IProps, {}> {
   render() {
     return (
       <ChartComponent
-        id="chart"
-        ref={chart => (this.chartInstanceRange = chart)}
+        id="charts"
         style={{ textAlign: 'center' }}
-        load={this.load.bind(this)}
+        isTransposed={true}
         primaryXAxis={{
           valueType: 'Category',
-          edgeLabelPlacement: 'Shift',
-          majorGridLines: { width: 0 },
-        }}
-        primaryYAxis={{
-          labelFormat: '{value}˚C',
+          interval: 1,
+          labelIntersectAction: 'Rotate90',
           lineStyle: { width: 0 },
           majorTickLines: { width: 0 },
-          minimum: 0,
-          maximum: 40,
+          minorTickLines: { width: 0 },
         }}
+        load={this.load.bind(this)}
         chartArea={{ border: { width: 0 } }}
+        primaryYAxis={{ labelFormat: '{value}°C', majorGridLines: { width: 0 } }}
         tooltip={{ enable: true }}
-        legendSettings={{ visible: true }}
-        title="Monthly Temperature Range"
+        title="Temperature per Hour"
         loaded={this.onChartLoad.bind(this)}
       >
-        <Inject services={[SplineRangeAreaSeries, Category, DateTime, Tooltip, Legend]} />
+        <Inject services={[SplineSeries, Category, Legend, Tooltip]} />
         <SeriesCollectionDirective>
           <SeriesDirective
-            dataSource={data}
-            border={{ width: 2 }}
+            dataSource={this.props.avrgList}
             xName="x"
-            high="high"
-            opacity={0.4}
-            marker={{ visible: false }}
-            low="low"
-            animation={{ enable: true }}
-            name="England"
-            type="SplineRangeArea"
-          ></SeriesDirective>
-          <SeriesDirective
-            dataSource={data1}
-            border={{ width: 2 }}
-            xName="x"
-            high="high"
-            opacity={0.4}
-            marker={{ visible: false }}
-            low="low"
-            animation={{ enable: true }}
-            name="India"
-            type="SplineRangeArea"
+            yName="y"
+            width={3}
+            name="Hours"
+            type="Spline"
+            marker={{ visible: true, width: 10, height: 10 }}
           ></SeriesDirective>
         </SeriesCollectionDirective>
       </ChartComponent>

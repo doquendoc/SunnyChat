@@ -34,7 +34,7 @@ const MiniWeatherCard = ({ onClick, forecastList, isSelected, unit, locale }: an
       <Root>
         <Container isSelected={isSelected}>
           <Card
-            className={`rounded-xl shadow-lg ${(props: any) => (props.isSelected ? '!bg-gray-200' : 'bg-gray-100 ')}`}
+            className={`rounded-xl shadow-lg ${(props: any) => (isSelected ? '!bg-gray-200' : 'bg-gray-100 ')}`}
             onMouseEnter={onClick}
           >
             <Text>{moment.unix(first.dt).locale(locale).format('dddd')}</Text>

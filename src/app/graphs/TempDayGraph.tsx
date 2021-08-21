@@ -19,35 +19,7 @@ import {
   ChartTheme,
   IAnimationCompleteEventArgs,
 } from '@syncfusion/ej2-react-charts'
-import { Browser, EmitType } from '@syncfusion/ej2-base'
 
-export let data1: any[] = [
-  { x: 'Sun', y: 15 },
-  { x: 'Mon', y: 22 },
-  { x: 'Tue', y: 32 },
-  { x: 'Wed', y: 31 },
-  { x: 'Thu', y: 29 },
-  { x: 'Fri', y: 24 },
-  { x: 'Sat', y: 18 },
-]
-export let data2: any[] = [
-  { x: 'Sun', y: 10 },
-  { x: 'Mon', y: 18 },
-  { x: 'Tue', y: 28 },
-  { x: 'Wed', y: 28 },
-  { x: 'Thu', y: 26 },
-  { x: 'Fri', y: 20 },
-  { x: 'Sat', y: 15 },
-]
-export let data3: any[] = [
-  { x: 'Sun', y: 2 },
-  { x: 'Mon', y: 12 },
-  { x: 'Tue', y: 22 },
-  { x: 'Wed', y: 23 },
-  { x: 'Thu', y: 19 },
-  { x: 'Fri', y: 13 },
-  { x: 'Sat', y: 8 },
-]
 const SAMPLE_CSS = `
      .control-fluid {
          padding: 0px !important;
@@ -74,9 +46,9 @@ const SAMPLE_CSS = `
      }`
 
 interface IProps {
-  minList: string[]
-  maxList: string[]
-  avrgList: string[]
+  minList?: string[]
+  maxList?: string[]
+  avrgList?: string[]
 }
 
 export class Spline extends React.Component<IProps, {}> {
@@ -84,7 +56,7 @@ export class Spline extends React.Component<IProps, {}> {
   render() {
     return (
       <ChartComponent
-        id="charts"
+        id="day"
         style={{ textAlign: 'center' }}
         ref={charts => (this.chartInstance = charts)}
         primaryXAxis={{
@@ -102,8 +74,8 @@ export class Spline extends React.Component<IProps, {}> {
           minorTickLines: { width: 0 },
         }}
         tooltip={{ enable: true }}
-        title="NC Weather Report - 2016"
-        loaded={this.onChartLoad.bind(this)}
+        title="Temperature Graph"
+        loaded={this.onChartLoad}
         animationComplete={this.animationComplete.bind(this)}
       >
         <Inject services={[SplineSeries, Legend, Category, Tooltip, ChartAnnotation]} />
@@ -155,8 +127,8 @@ export class Spline extends React.Component<IProps, {}> {
       </ChartComponent>
     )
   }
-  public onChartLoad(args: ILoadedEventArgs): void {
-    let chart: Element = document.getElementById('charts')
+  onChartLoad = (args: ILoadedEventArgs) => {
+    let chart: Element = document.getElementById('day')
     chart.setAttribute('title', '')
   }
   public animationComplete(args: IAnimationCompleteEventArgs): void {

@@ -8,7 +8,6 @@ export const statistics = (response: any) => {
     dates.push(newDate.toISOString().split('T')[0])
     dayTempMatrix.push([])
   }
-  console.log(dates)
   response.data.list.map((x: any) => {
     if (x.dt_txt.split(' ')[0] == dates[0]) {
       dayTempMatrix[0].push(x)
@@ -62,6 +61,27 @@ export const valuesForGraphs = (dayTempList: any, type: string) => {
   dayTempList.map((dayList: any) => {
     count++
     return (value[count].y = tempPerDay(dayList, type))
+  })
+  return value
+}
+
+export const valuesForDailyGraph = (dayTempList: any) => {
+  let value: any[] = [
+    { x: '2:00 am', y: 15 },
+    { x: '5:00 am', y: 22 },
+    { x: '8:00 am', y: 32 },
+    { x: '11:00 am', y: 31 },
+    { x: '2:00 pm', y: 31 },
+    { x: '5:00 pm', y: 31 },
+    { x: '8:00 pm', y: 31 },
+    { x: '11:00 pm', y: 31 },
+  ]
+
+  console.log(dayTempList)
+  let count = 7 - dayTempList.length || -1
+  dayTempList.map((day: any) => {
+    count++
+    return (value[count].y = day.main.temp)
   })
   return value
 }
