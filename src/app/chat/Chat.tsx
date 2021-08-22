@@ -1,12 +1,13 @@
 import React from 'react'
 import {SessionContext} from "../../shared/providers/context/session.provider";
 // @ts-ignore
-import {ChatList, MessageList} from 'react-chat-elements'
+import {MessageList} from 'react-chat-elements'
 import 'react-chat-elements/dist/main.css';
 
 import Ably from "ably/promises";
 import {Col, Input, PageHeader, Row} from "antd";
 import {Icon} from "semantic-ui-react";
+import SChatList from './ChatList/ChatList';
 
 interface IState {
     messageList?: any[];
@@ -27,11 +28,26 @@ class Chat extends React.Component<{}, IState> {
         }
     }
 
+
+    authCallback = (tokenParams:any, callback:any) => {
+        var rest = new Ably.Rest({key: 'AxN5xw.SJVx5g:crbQ6fEXvKWzJhhg'});
+        // @ts-ignore
+        rest.auth.createTokenRequest({clientId: this.context.user.email}, (err:any, tokenRequest:any) => {
+            console.log('Token request created for clientId: ' + tokenRequest.clientId, 'orange');
+            callback(null, tokenRequest);
+        });
+    }
+
     componentDidMount() {
-        const client = new Ably.Realtime({key: "AxN5xw.SJVx5g:crbQ6fEXvKWzJhhg", clientId: this.context.user.username});
+        const client = new Ably.Realtime({authCallback: this.authCallback});
         this.setState({
             client,
             channel: client.channels.get('diana-channel')
+        })
+        const a = client.channels.get('diana-channel').presence.enter().then(response => {
+            client.channels.get('diana-channel').presence.get().then(responses => {
+                debugger
+            });
         })
         setTimeout(() => {
             this.subscribe()
@@ -42,7 +58,7 @@ class Chat extends React.Component<{}, IState> {
         await this.state.channel.subscribe((message: any) => {
             const messageList = this.state.messageList.slice();
             message.data.date = new Date(message.data.date);
-            if (message.clientId === this.context.user.username) {
+            if (message.clientId === this.context.user.email) {
                 messageList.push(message.data);
             } else {
                 message.data.position = 'left';
@@ -99,34 +115,7 @@ class Chat extends React.Component<{}, IState> {
                     </div>
                 </Col>
                 <Col span={12}>
-                    <ChatList
-                        className='chat-list'
-                        dataSource={[
-                            {
-                                avatar: 'https://react.semantic-ui.com/images/avatar/large/justen.jpg',
-                                alt: 'Reactjs',
-                                title: 'Oscar',
-                                subtitle: 'What are you doing?',
-                                date: new Date(),
-                                unread: 0,
-                            },
-                            {
-                                avatar: 'https://react.semantic-ui.com/images/avatar/small/elliot.jpg',
-                                alt: 'Reactjs',
-                                title: 'Vlad',
-                                subtitle: 'Hello',
-                                date: new Date(),
-                                unread: 0,
-                            },
-                            {
-                                avatar: 'https://react.semantic-ui.com/images/avatar/small/joe.jpg',
-                                alt: 'Reactjs',
-                                title: 'Euge',
-                                subtitle: 'Hi!!!!',
-                                date: new Date(),
-                                unread: 0,
-                            },
-                        ]}/>
+                    <SChatList />
                 </Col>
             </Row>
         )
