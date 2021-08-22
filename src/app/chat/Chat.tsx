@@ -21,7 +21,6 @@ class Chat extends React.Component<{}, IState> {
 
     constructor(args: any) {
         super(args);
-        debugger
         this.state = {
             messageList: [],
             message: "",
@@ -42,11 +41,11 @@ class Chat extends React.Component<{}, IState> {
     subscribe = async () => {
         await this.state.channel.subscribe((message: any) => {
             const messageList = this.state.messageList.slice();
-            if (message.clientId === this.context.user.username){
+            message.data.date = new Date(message.data.date);
+            if (message.clientId === this.context.user.username) {
                 messageList.push(message.data);
-            }
-            else {
-               message.data.position = 'left';
+            } else {
+                message.data.position = 'left';
                 messageList.push(message.data);
             }
             this.setState({messageList});
