@@ -25,6 +25,8 @@ const cities: any = [
   { city: 'beijing', label: '🇨🇳 Beijing' },
 ]
 
+export const WeatherContext = React.createContext({})
+
 const Weather = () => {
   const params = new URLSearchParams(window.location.search)
   const city = params.get('city_index')
@@ -33,6 +35,10 @@ const Weather = () => {
   const [forecast, setForecast] = useState([])
   const [error, setError] = useState('')
   const [dayTempList, setDayTempList] = useState([])
+
+  const [completeForecast, setCompleteForecast] = useState([])
+
+  const [forecastIdxFromCard, setForecastIdxFromCard] = useState(0)
 
   const fetchWeatherAsync = async (cityId: any) => {
     try {
@@ -57,7 +63,7 @@ const Weather = () => {
       }))
       setForecast(transformData)
 
-      setDayTempList(statistics(response))
+      //   setDayTempList(statistics(response))
     } catch (err) {
       if (OPEN_WEATHER_MAP_KEY.length === 0) {
         // Use mock data if no key
@@ -86,52 +92,56 @@ const Weather = () => {
 
   return (
     <div className="App">
-      <Row className="!bg-white dark:bg-gray-800 shadow-md rounded-xl mb-10 transition duration-500 ease-in-out transform hover:-translate-y-2 hover:scale-102 mr-7">
-        <Col span={24} className="mx-2 pt-6 space-y-4">
-          {error.length === 0 ? (
-            <WeatherWidget
-              config={{
-                location: cities[cityIndex].label,
-                unit: 'metric',
-                locale: 'en_en',
-                onLocationClick: () => {
-                  if (cityIndex + 1 >= cities.length) {
-                    setCityIndex(0)
-                    fetchWeatherAsync(cities[0].city)
-                  } else {
-                    setCityIndex(cityIndex + 1)
-                    fetchWeatherAsync(cities[cityIndex + 1].city)
-                  }
-                },
-              }}
-              forecast={forecast}
-            />
-          ) : (
-            <div>
-              <h2>Unable to fetch weather data!</h2>
-              <pre>{error}</pre>
-            </div>
-          )}
-        </Col>
-      </Row>
-      <Row className="mb-6">
-        <Col
-          span={11}
-          className="bg-white dark:bg-gray-800 p-2 mx-6 rounded-xl shadow-xl space-y-4 transition duration-500 ease-in-out transform hover:-translate-y-2 hover:scale-102"
-        >
-          <Spline
-            minList={valuesForGraphs(dayTempList, 'min')}
-            maxList={valuesForGraphs(dayTempList, 'max')}
-            avrgList={valuesForGraphs(dayTempList, 'avrg')}
-          ></Spline>
-        </Col>
-        <Col
-          span={11}
-          className="bg-white dark:bg-gray-800 p-2 mx-6 rounded-xl shadow-xl space-y-4 transition duration-500 ease-in-out transform hover:-translate-y-2 hover:scale-102"
-        >
-          <SplineInversed avrgList={valuesForDailyGraph(dayTempList[0] || [])}></SplineInversed>
-        </Col>
-      </Row>
+      <WeatherContext.Provider value={{ setCompleteForecast, setForecastIdxFromCard }}>
+        <Row className="!bg-white dark:bg-gray-800 shadow-md rounded-xl mb-10 transition duration-500 ease-in-out transform hover:-translate-y-2 hover:scale-102 mr-7">
+          <Col span={24} className="mx-2 pt-6 space-y-4">
+            {error.length === 0 ? (
+              <WeatherWidget
+                config={{
+                  location: cities[cityIndex].label,
+                  unit: 'metric',
+                  locale: 'en_en',
+                  onLocationClick: () => {
+                    if (cityIndex + 1 >= cities.length) {
+                      setCityIndex(0)
+                      fetchWeatherAsync(cities[0].city)
+                    } else {
+                      setCityIndex(cityIndex + 1)
+                      fetchWeatherAsync(cities[cityIndex + 1].city)
+                    }
+                  },
+                }}
+                forecast={forecast}
+              />
+            ) : (
+              <div>
+                <h2>Unable to fetch weather data!</h2>
+                <pre>{error}</pre>
+              </div>
+            )}
+          </Col>
+        </Row>
+        <Row className="mb-6">
+          <Col
+            span={11}
+            className="bg-white dark:bg-gray-800 p-2 mx-6 rounded-xl shadow-xl space-y-4 transition duration-500 ease-in-out transform hover:-translate-y-2 hover:scale-102"
+          >
+            <Spline
+              minList={valuesForGraphs(completeForecast || dayTempList, 'min')}
+              maxList={valuesForGraphs(completeForecast || dayTempList, 'max')}
+              avrgList={valuesForGraphs(completeForecast || dayTempList, 'avrg')}
+            ></Spline>
+          </Col>
+          <Col
+            span={11}
+            className="bg-white dark:bg-gray-800 p-2 mx-6 rounded-xl shadow-xl space-y-4 transition duration-500 ease-in-out transform hover:-translate-y-2 hover:scale-102"
+          >
+            <SplineInversed
+              avrgList={valuesForDailyGraph(completeForecast[forecastIdxFromCard] || [])}
+            ></SplineInversed>
+          </Col>
+        </Row>
+      </WeatherContext.Provider>
     </div>
   )
 }

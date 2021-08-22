@@ -1,12 +1,22 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import styled from 'styled-components'
 import WeatherBannerTab from './WeatherBannerTab'
 import MiniWeatherCard from './MiniWeatherCard'
+import { WeatherContext } from '../Weather'
 
 const WeatherWidget = ({ config, forecast }: any) => {
   const [forecastIdx, setForecastIdx] = useState(0)
+  let forecastList: any = []
+  const { setCompleteForecast, setForecastIdxFromCard }: any = useContext(WeatherContext)
+
+  useEffect(() => {
+    setCompleteForecast(forecastList)
+    console.log(forecastList)
+    console.log(forecastIdx)
+    setForecastIdxFromCard(forecastIdx)
+  }, [forecast, forecastIdx]) // notice the empty array here
 
   if (forecast !== undefined && forecast.length > 0) {
     let firstMomentOfDay: any
@@ -32,63 +42,62 @@ const WeatherWidget = ({ config, forecast }: any) => {
       }
     })
     /* eslint-enable no-param-reassign */
-    const forecastList = forecastOfDayList
-    return (
-      <ContentContainer>
-        <WeatherBannerTab
-          location={config.location}
-          forecastOfDay={forecastList[forecastIdx]}
+    forecastList = forecastOfDayList
+  }
+
+  return forecastList ? (
+    <ContentContainer>
+      <WeatherBannerTab
+        location={config.location}
+        forecastOfDay={forecastList[forecastIdx]}
+        unit={config.unit}
+        locale={config.locale}
+        onLocationClick={config.onLocationClick}
+      />
+      <Next5Container>
+        <MiniWeatherCard
+          onClick={() => setForecastIdx(0)}
+          forecastList={forecastList[0]}
+          isSelected={forecastIdx === 0}
           unit={config.unit}
           locale={config.locale}
-          onLocationClick={config.onLocationClick}
         />
-        <Next5Container>
-          <MiniWeatherCard
-            onClick={() => setForecastIdx(0)}
-            forecastList={forecastList[0]}
-            isSelected={forecastIdx === 0}
-            unit={config.unit}
-            locale={config.locale}
-          />
-          <MiniWeatherCard
-            onClick={() => setForecastIdx(1)}
-            forecastList={forecastList[1]}
-            isSelected={forecastIdx === 1}
-            unit={config.unit}
-            locale={config.locale}
-          />
-          <MiniWeatherCard
-            onClick={() => setForecastIdx(2)}
-            forecastList={forecastList[2]}
-            isSelected={forecastIdx === 2}
-            unit={config.unit}
-            locale={config.locale}
-          />
-          <MiniWeatherCard
-            onClick={() => setForecastIdx(3)}
-            forecastList={forecastList[3]}
-            isSelected={forecastIdx === 3}
-            unit={config.unit}
-            locale={config.locale}
-          />
-          <MiniWeatherCard
-            onClick={() => setForecastIdx(4)}
-            forecastList={forecastList[4]}
-            isSelected={forecastIdx === 4}
-            unit={config.unit}
-            locale={config.locale}
-          />
-        </Next5Container>
-      </ContentContainer>
-    )
-  }
-  return (
+        <MiniWeatherCard
+          onClick={() => setForecastIdx(1)}
+          forecastList={forecastList[1]}
+          isSelected={forecastIdx === 1}
+          unit={config.unit}
+          locale={config.locale}
+        />
+        <MiniWeatherCard
+          onClick={() => setForecastIdx(2)}
+          forecastList={forecastList[2]}
+          isSelected={forecastIdx === 2}
+          unit={config.unit}
+          locale={config.locale}
+        />
+        <MiniWeatherCard
+          onClick={() => setForecastIdx(3)}
+          forecastList={forecastList[3]}
+          isSelected={forecastIdx === 3}
+          unit={config.unit}
+          locale={config.locale}
+        />
+        <MiniWeatherCard
+          onClick={() => setForecastIdx(4)}
+          forecastList={forecastList[4]}
+          isSelected={forecastIdx === 4}
+          unit={config.unit}
+          locale={config.locale}
+        />
+      </Next5Container>
+    </ContentContainer>
+  ) : (
     <div>
       <h3>No forecast data available!</h3>
     </div>
   )
 }
-
 // WeatherWidget.defaultProps = {
 //   config: PropTypes.arrayOf({
 //     unit: 'metric',
