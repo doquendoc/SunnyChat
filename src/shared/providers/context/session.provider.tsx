@@ -19,6 +19,21 @@ export const SessionProvider = ({children}: {children: any}) => {
         loading: false,
     });
 
+    const createUser = () =>{
+        const userList = [{
+            name: "Diana",
+            email: "diana@gmail.com"
+        }]
+        localStorage.setItem("userList", JSON.stringify(userList) )
+        JSON.parse(localStorage.getItem("userList"))
+        userList.push({
+            name: "Diana",
+            email: "diana@gmail.com"
+        })
+        localStorage.setItem("userList", JSON.stringify(userList))
+
+    }
+
     useEffect(() => {
         const token= localStorage.getItem('token');
         if (token) {
