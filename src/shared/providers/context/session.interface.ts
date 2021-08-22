@@ -11,6 +11,7 @@ export interface ISessionContext {
     loading?: boolean
     loginUser?: (credentials: ICrendentials) => Promise<IUser>;
     logout?: () => void;
+    registerUser?: (credentials: any) => void;
     user?: IUser;
     setSession?: (session: ISession) => void;
     isSuperAdmin?: () => boolean;

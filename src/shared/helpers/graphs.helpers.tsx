@@ -33,18 +33,18 @@ export const tempPerDay = (dailyForecast: any, type: string) => {
   let count = 1
   if (dailyForecast.length > 0) {
     let value = dailyForecast.reduce((carrier: any, response: any) => {
-      if (type == 'max' && carrier < response.main.temp) {
-        carrier = response.main.temp
+      if (type == 'max' && carrier < response.temp_max) {
+        carrier = response.temp_max
       }
-      if (type == 'min' && carrier > response.main.temp) {
-        carrier = response.main.temp
+      if (type == 'min' && carrier > response.temp_min) {
+        carrier = response.temp_min
       }
       if (type == 'avrg') {
         count++
-        carrier += response.main.temp
+        carrier += response.temp
       }
       return carrier
-    }, dailyForecast[0].main.temp)
+    }, dailyForecast[0].temp)
     return type == 'avrg' ? value / count : value
   } else return 0
 }
@@ -77,11 +77,10 @@ export const valuesForDailyGraph = (dayTempList: any) => {
     { x: '11:00 pm', y: 31 },
   ]
 
-  console.log(dayTempList)
   let count = 7 - dayTempList.length || -1
   dayTempList.map((day: any) => {
     count++
-    return (value[count].y = day.main.temp)
+    return (value[count].y = day.temp)
   })
   return value
 }
