@@ -15,7 +15,8 @@ const App = () => {
         <BrowserRouter>
             <Router>
                 <QueryParamProvider ReactRouterRoute={Route}>
-                    {isAuthenticated && <AppLayout>
+                    {isAuthenticated &&
+                    <AppLayout>
                         <Switch>
                             {routes.map(route => (
                                 <Route exact path={route.routeTo} component={route.component}/>

@@ -52,6 +52,10 @@
     animation-timing-function: ease-out
 }
 
+body {
+    background-color: #f3f4f6;
+}
+
 @keyframes moveInLeft {
     0% {
         opacity: 0;
