@@ -8,6 +8,7 @@ import Ably from 'ably/promises'
 import { Col, Input, PageHeader, Row } from 'antd'
 import { Icon } from 'semantic-ui-react'
 import SChatList from './ChatList/ChatList'
+import { ChatContext, ChatProvider } from '../../shared/providers/context/chat.provider'
 
 interface IState {
   messageList?: any[]
@@ -17,8 +18,8 @@ interface IState {
 }
 
 class Chat extends React.Component<{}, IState> {
-  static contextType = SessionContext
-  context!: React.ContextType<typeof SessionContext>
+  static contextType = ChatContext
+  declare context: React.ContextType<typeof ChatContext>
 
   constructor(args: any) {
     super(args)
@@ -28,39 +29,14 @@ class Chat extends React.Component<{}, IState> {
     }
   }
 
-  authCallback = (tokenParams: any, callback: any) => {
-    var rest = new Ably.Rest({ key: 'AxN5xw.SJVx5g:crbQ6fEXvKWzJhhg' })
-    // @ts-ignore
-    rest.auth.createTokenRequest({ clientId: this.context.user.email }, (err: any, tokenRequest: any) => {
-      console.log('Token request created for clientId: ' + tokenRequest.clientId, 'orange')
-      callback(null, tokenRequest)
-    })
-  }
-
   componentDidMount() {
-    const client = new Ably.Realtime({ authCallback: this.authCallback })
-    this.setState({
-      client,
-      channel: client.channels.get('diana-channel'),
-    })
-    const a = client.channels
-      .get('diana-channel')
-      .presence.enter()
-      .then(response => {
-        client.channels
-          .get('diana-channel')
-          .presence.get()
-          .then(responses => {
-            debugger
-          })
-      })
     setTimeout(() => {
       this.subscribe()
     }, 200)
   }
 
   subscribe = async () => {
-    await this.state.channel.subscribe((message: any) => {
+    await this.context.userChannel.subscribe((message: any) => {
       const messageList = this.state.messageList.slice()
       message.data.date = new Date(message.data.date)
       if (message.clientId === this.context.user.email) {
@@ -74,9 +50,9 @@ class Chat extends React.Component<{}, IState> {
   }
 
   sendMessage = () => {
-    const { message, channel } = this.state
+    const { message } = this.state
     message &&
-      channel.publish({
+      this.context.userChannel.publish({
         name: 'myEventName',
         data: {
           date: new Date(),

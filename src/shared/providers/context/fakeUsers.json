@@ -3,18 +3,44 @@
     "id": "1",
     "email": "admin@sunnychat.cu",
     "password": "123456",
-    "name": "SuperAdmin",
-    "username": "sunnychat",
+    "name": "Super Ozki",
+    "username": "superozki",
+    "subtitle": "Algun dia aprendere ingles",
     "roles": ["admin"],
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJlbWFpbCI6ImFkbWluQHN1bm55Y2hhdC5jdSIsInBhc3N3b3JkIjoiMTIzNDU2IiwibmFtZSI6IlN1cGVyQWRtaW4iLCJ1c2VybmFtZSI6InN1bm55Y2hhdCIsInJvbGVzIjpbImFkbWluIl19.hJBbG8mbcLMECFoF6DznWqgdUqo7QhEplT2d4KPPLdA"
+    "avatar": "https://react.semantic-ui.com/images/avatar/large/justen.jpg",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJlbWFpbCI6ImFkbWluQHN1bm55Y2hhdC5jdSIsInBhc3N3b3JkIjoiMTIzNDU2IiwibmFtZSI6IlN1cGVyIE96a2kiLCJ1c2VybmFtZSI6InN1cGVyb3praSIsInN1YnRpdGxlIjoiQWxndW4gZGlhIGFwcmVuZGVyZSBpbmdsZXMiLCJyb2xlcyI6WyJhZG1pbiJdLCJhdmF0YXIiOiJodHRwczovL3JlYWN0LnNlbWFudGljLXVpLmNvbS9pbWFnZXMvYXZhdGFyL2xhcmdlL2p1c3Rlbi5qcGcifQ.C8vAakzjxfvg0-R94Exk1CqQfEazshaiYGIIB6lV1KE"
   },
   {
     "id": "2",
     "email": "diana@sunnychat.cu",
     "password": "123456",
-    "name": "Diana Oquendo",
+    "name": "Pretty D",
     "username": "doquendoc96",
+    "subtitle": "Tomato or Tomatoe?",
     "roles": ["client"],
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJlbWFpbCI6ImRpYW5hQHN1bm55Y2hhdC5jdSIsInBhc3N3b3JkIjoiMTIzNDU2IiwibmFtZSI6IkRpYW5hIE9xdWVuZG8iLCJ1c2VybmFtZSI6ImRvcXVlbmRvYzk2Iiwicm9sZXMiOlsiY2xpZW50Il19.uhh7bbsLEfru3SB6FVTuDynmdakHk_KQnQR_SKLgrwc"
+    "avatar": "https://react.semantic-ui.com/images/avatar/large/jenny.jpg",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJlbWFpbCI6ImRpYW5hQHN1bm55Y2hhdC5jdSIsInBhc3N3b3JkIjoiMTIzNDU2IiwibmFtZSI6IlByZXR0eSBEIiwidXNlcm5hbWUiOiJkb3F1ZW5kb2M5NiIsInN1YnRpdGxlIjoiVG9tYXRvIG9yIFRvbWF0b2U_Iiwicm9sZXMiOlsiY2xpZW50Il0sImF2YXRhciI6Imh0dHBzOi8vcmVhY3Quc2VtYW50aWMtdWkuY29tL2ltYWdlcy9hdmF0YXIvbGFyZ2UvamVubnkuanBnIn0.2RJgKjZeAxlrE4PIq31J91ckxzfh7yVFPXfzM9bg4PA"
+  },
+  {
+    "id": "3",
+    "email": "vlad@sunnychat.cu",
+    "password": "123456",
+    "name": "Vlad the Boss",
+    "username": "vladboss",
+    "subtitle": "I'm the boss, kid. Don't play with me.",
+    "roles": ["client"],
+    "avatar": "https://react.semantic-ui.com/images/avatar/small/elliot.jpg",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMiLCJlbWFpbCI6InZsYWRAc3VubnljaGF0LmN1IiwicGFzc3dvcmQiOiIxMjM0NTYiLCJuYW1lIjoiVmxhZCB0aGUgQm9zcyIsInVzZXJuYW1lIjoidmxhZGJvc3MiLCJzdWJ0aXRsZSI6IkknbSB0aGUgYm9zcywga2lkLiBEb24ndCBwbGF5IHdpdGggbWUuIiwicm9sZXMiOlsiY2xpZW50Il0sImF2YXRhciI6Imh0dHBzOi8vcmVhY3Quc2VtYW50aWMtdWkuY29tL2ltYWdlcy9hdmF0YXIvc21hbGwvZWxsaW90LmpwZyJ9.drBxac5M2KSG6NItUyrGBjLTi3m0GoDYAjINVeORuu0"
+  },
+  {
+    "id": "4",
+    "email": "nene@sunnychat.cu",
+    "password": "123456",
+    "name": "The Nene",
+    "username": "nenenene",
+    "subtitle": "Should I still buy shampoo?",
+    "roles": ["client"],
+    "avatar": "https://react.semantic-ui.com/images/avatar/small/joe.jpg",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6Im5lbmVAc3VubnljaGF0LmN1IiwicGFzc3dvcmQiOiIxMjM0NTYiLCJuYW1lIjoiVGhlIE5lbmUiLCJ1c2VybmFtZSI6Im5lbmVuZW5lIiwic3VidGl0bGUiOiJTaG91bGQgSSBzdGlsbCBidXkgc2hhbXBvbz8iLCJyb2xlcyI6WyJjbGllbnQiXSwiYXZhdGFyIjoiaHR0cHM6Ly9yZWFjdC5zZW1hbnRpYy11aS5jb20vaW1hZ2VzL2F2YXRhci9zbWFsbC9qb2UuanBnIn0.0jKQjtqeb4wowFvxL970vCxzgK86CKnO2lMMfSTlQG4"
   }
 ]

@@ -10,7 +10,7 @@ export const SessionContext = React.createContext<ISessionContext>({})
 
 export const SessionProvider = ({ children }: { children: any }) => {
   const { t } = useTranslation('main')
-  const [{ isAuthenticated, loading, user }, setSession] = useState<ILogin>({
+  const [{ isAuthenticated, loading, user, adminEmail }, setSession] = useState<ILogin>({
     isAuthenticated: false,
     loading: false,
   })
@@ -21,6 +21,7 @@ export const SessionProvider = ({ children }: { children: any }) => {
       setSession({
         isAuthenticated: true,
         user: userDecode(token),
+        adminEmail: 'admin@sunnychat.cu',
       })
     }
   }, [isAuthenticated])
@@ -89,7 +90,9 @@ export const SessionProvider = ({ children }: { children: any }) => {
   }
 
   return (
-    <SessionContext.Provider value={{ isAuthenticated, loading, user, loginUser, logout, isSuperAdmin, registerUser }}>
+    <SessionContext.Provider
+      value={{ isAuthenticated, loading, user, adminEmail, loginUser, logout, isSuperAdmin, registerUser }}
+    >
       {children}
     </SessionContext.Provider>
   )
