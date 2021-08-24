@@ -6,16 +6,6 @@ import {SessionContext} from './session.provider'
 
 export const ChatContext = React.createContext<IChatContext>({})
 
-const authAbly = (clientId: any) => {
-    return (tokenParams: any, callback: any) => {
-        const rest = new Ably.Rest({key: 'AxN5xw.SJVx5g:crbQ6fEXvKWzJhhg'})
-        // @ts-ignore
-        rest.auth.createTokenRequest({clientId}, (err: any, tokenRequest: any) => {
-            callback(null, tokenRequest)
-        })
-    }
-}
-
 export const ChatProvider = ({children}: { children: any }) => {
     const {user, adminEmail} = React.useContext<ISessionContext>(SessionContext)
     const authCallback = (tokenParams: any, callback: any) => {
