@@ -6,7 +6,11 @@ import {ChatUser} from '../../../shared/models/chat.model'
 import {ChatContext} from '../../../shared/providers/context/chat.provider'
 import fakeUsers from '../../../shared/providers/context/fakeUsers.json'
 
-class SChatList extends React.Component<{}, {}> {
+interface IProps {
+  cleanMessageList: ()=>void
+}
+
+class SChatList extends React.Component<IProps, {}> {
   static contextType = ChatContext
   declare context: React.ContextType<typeof ChatContext>
 
@@ -32,6 +36,7 @@ class SChatList extends React.Component<{}, {}> {
 
   startConversation = (e: ChatUser) => {
     this.context.setcurrentChatId(e.email)
+    this.props.cleanMessageList();
   }
 
   render() {

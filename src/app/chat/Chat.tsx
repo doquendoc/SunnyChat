@@ -97,7 +97,7 @@ class Chat extends React.Component<{}, IState> {
                     </div>
                 </Col>
                 <Col span={12}>
-                    <SChatList/>
+                    <SChatList cleanMessageList={()=>this.setState({messageList: []})}/>
                 </Col>
             </Row>
         )
