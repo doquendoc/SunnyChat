@@ -14,7 +14,7 @@ class SChatList extends React.Component<{}, {}> {
     super(props)
   }
 
-  createList = (): ChatUser[] => {
+  userList = (): ChatUser[] => {
     // const a = client.channels
     //   .get('diana-channel')
     //   .presence.enter()
@@ -26,7 +26,8 @@ class SChatList extends React.Component<{}, {}> {
     //         debugger
     //       })
     //   })
-    return fakeUsers.map(user => new ChatUser(user))
+    const userList = fakeUsers.filter(user=> user.email !== this.context.user.email)
+    return userList.map(user => new ChatUser(user))
   }
 
   startConversation = (e: ChatUser) => {
@@ -37,7 +38,7 @@ class SChatList extends React.Component<{}, {}> {
     return (
       <ChatList
         className="chat-list"
-        dataSource={this.createList()}
+        dataSource={this.userList()}
         onClick={(e: ChatUser) => {
           this.startConversation(e)
         }}
