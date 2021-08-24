@@ -8,7 +8,7 @@ export const ChatContext = React.createContext<IChatContext>({})
 
 export const BROADCAST_CHAT = {
     "avatar": "https://react.semantic-ui.com/images/avatar/large/tom.jpg",
-    "id": "1",
+    "id": "5",
     "email": "broadcast@sunnychat.cu",
     "name": "Grup Chat",
     "username": "Grup Chat",

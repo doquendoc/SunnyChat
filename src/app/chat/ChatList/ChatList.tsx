@@ -33,8 +33,7 @@ class SChatList extends React.Component<IProps, {}> {
     //   })
     const userList: any = fakeUsers.filter(user=> user.email !== this.context.user.email)
     userList.push(BROADCAST_CHAT);
-    userList.map((user: any) => new ChatUser(user))
-    return userList;
+    return userList.map((user: any) => new ChatUser(user));
   }
 
   startConversation = (userData: ChatUser) => {
