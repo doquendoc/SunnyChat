@@ -51,6 +51,19 @@ class Chat extends React.Component<{}, IState> {
             }
             this.setState({messageList})
         })
+
+        await this.context.activeChanel.subscribe((message: any) => {
+            const messageList = this.state.messageList.slice()
+            message.data.date = new Date(message.data.date)
+            if (message.clientId === '') {
+                message.data.position = 'left'
+                messageList.push(message.data)
+            } else {
+                openNotificationWithIcon('info', 'Message', `El usuario ${message.clientId} te ha enviado un mensjae: ${message.data.text}`)
+            }
+            this.setState({messageList})
+        })
+
     }
 
     sendMessage = () => {
