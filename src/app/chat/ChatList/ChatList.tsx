@@ -1,14 +1,13 @@
 import React from 'react'
 // @ts-ignore
-import { ChatList } from 'react-chat-elements'
+import {ChatList} from 'react-chat-elements'
 import 'react-chat-elements/dist/main.css'
-import { ChatUser } from '../../../shared/models/chat.model'
-import { ChatContext } from '../../../shared/providers/context/chat.provider'
+import {ChatUser} from '../../../shared/models/chat.model'
+import {ChatContext} from '../../../shared/providers/context/chat.provider'
 import fakeUsers from '../../../shared/providers/context/fakeUsers.json'
-import { SessionContext } from '../../../shared/providers/context/session.provider'
 
 class SChatList extends React.Component<{}, {}> {
-  static contextType = SessionContext
+  static contextType = ChatContext
   declare context: React.ContextType<typeof ChatContext>
 
   constructor(props: any) {
