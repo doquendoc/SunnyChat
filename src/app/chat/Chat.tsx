@@ -9,12 +9,14 @@ import {Col, Input, PageHeader, Row} from 'antd'
 import {Icon} from 'semantic-ui-react'
 import SChatList from './ChatList/ChatList'
 import {ChatContext, ChatProvider} from '../../shared/providers/context/chat.provider'
+import {IUser} from "../../shared/helpers/hooks/interface.hooks";
+import {ChatUser} from "../../shared/models/chat.model";
+import fakeUsers from '../../shared/providers/context/fakeUsers.json'
 
 interface IState {
     messageList?: any[]
-    message?: string
-    client?: Ably.Realtime
-    channel?: any
+    message?: string;
+    selectedUser: ChatUser;
 }
 
 class Chat extends React.Component<{}, IState> {
@@ -26,6 +28,7 @@ class Chat extends React.Component<{}, IState> {
         this.state = {
             messageList: [],
             message: '',
+            selectedUser: new ChatUser(fakeUsers[0]),
         }
     }
 
@@ -72,10 +75,10 @@ class Chat extends React.Component<{}, IState> {
                 <Col span={12}>
                     <div className="mr-6 rounded-t-lg">
                         <PageHeader
-                            avatar={{src: 'https://react.semantic-ui.com/images/avatar/large/justen.jpg'}}
+                            avatar={{src: this.state.selectedUser.avatar}}
                             className="!border !bg-white"
                             onBack={null}
-                            title="Oscar"
+                            title={this.state.selectedUser.username}
                         />
                         <MessageList
                             className="message-list !shadow-sm h-[420px] !bg-[#cdcdcd]"
@@ -97,7 +100,9 @@ class Chat extends React.Component<{}, IState> {
                     </div>
                 </Col>
                 <Col span={12}>
-                    <SChatList cleanMessageList={()=>this.setState({messageList: []})}/>
+                    <SChatList
+                        cleanMessageList={()=>this.setState({messageList: []})}
+                        passUserData={(selectedUser)=>{this.setState({selectedUser})}}/>
                 </Col>
             </Row>
         )

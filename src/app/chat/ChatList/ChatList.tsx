@@ -7,7 +7,8 @@ import {ChatContext} from '../../../shared/providers/context/chat.provider'
 import fakeUsers from '../../../shared/providers/context/fakeUsers.json'
 
 interface IProps {
-  cleanMessageList: ()=>void
+  cleanMessageList?: ()=>void;
+  passUserData?: (data: ChatUser)=>void
 }
 
 class SChatList extends React.Component<IProps, {}> {
@@ -34,9 +35,11 @@ class SChatList extends React.Component<IProps, {}> {
     return userList.map(user => new ChatUser(user))
   }
 
-  startConversation = (e: ChatUser) => {
-    this.context.setcurrentChatId(e.email)
-    this.props.cleanMessageList();
+  startConversation = (userData: ChatUser) => {
+    const {context: {setcurrentChatId}, props: {cleanMessageList, passUserData}} = this;
+    setcurrentChatId && setcurrentChatId(userData.email)
+    cleanMessageList && cleanMessageList();
+    passUserData && passUserData(userData)
   }
 
   render() {
