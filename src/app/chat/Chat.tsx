@@ -29,7 +29,7 @@ class Chat extends React.Component<{}, IState> {
     this.state = {
       messageList: [],
       message: '',
-      selectedUser: new ChatUser(fakeUsers[0]),
+      selectedUser: new ChatUser(BROADCAST_CHAT),
     }
   }
 
@@ -65,7 +65,7 @@ class Chat extends React.Component<{}, IState> {
               messageList.push(message.data)
               this.setState({ messageList })
           }
-          else if(this.context.adminEmail) {
+          else {
               openNotificationWithIcon(
                   'info',
                   'Message',
@@ -111,6 +111,7 @@ class Chat extends React.Component<{}, IState> {
               dataSource={this.state.messageList}
             />
             <Input
+              disabled={this.context.currentChatId === BROADCAST_CHAT.email && this.context.isSuperAdmin() }
               value={this.state.message}
               onPressEnter={this.sendMessage}
               onChange={(e: any) => this.setState({ message: e.target.value })}

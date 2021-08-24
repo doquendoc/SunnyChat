@@ -16,7 +16,7 @@ export const BROADCAST_CHAT = {
 }
 
 export const ChatProvider = ({children}: { children: any }) => {
-    const {user, adminEmail} = React.useContext<ISessionContext>(SessionContext)
+    const {user, adminEmail, isSuperAdmin} = React.useContext<ISessionContext>(SessionContext)
     const authCallback = (tokenParams: any, callback: any) => {
         const rest = new Ably.Rest({key: 'AxN5xw.SJVx5g:crbQ6fEXvKWzJhhg'})
         // @ts-ignore
@@ -32,9 +32,9 @@ export const ChatProvider = ({children}: { children: any }) => {
 
     useEffect(() => {
         setUserChannel(client.channels.get(user.email));
-        setActiveChanel(client.channels.get(adminEmail));
+        setActiveChanel(client.channels.get(BROADCAST_CHAT.email));
         setGroupChanel(client.channels.get(BROADCAST_CHAT.email));
-        setCurrentChatId(adminEmail);
+        setCurrentChatId(BROADCAST_CHAT.email);
     }, [])
 
     useEffect(() => {
@@ -52,6 +52,7 @@ export const ChatProvider = ({children}: { children: any }) => {
                 currentChatId,
                 groupChanel,
                 adminEmail,
+                isSuperAdmin,
                 setcurrentChatId: currentChatId => setCurrentChatId(currentChatId),
             }}
         >

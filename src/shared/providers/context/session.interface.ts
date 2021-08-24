@@ -12,6 +12,7 @@ export interface IChatContext {
     groupChanel?: any;
     user?: IUser;
     currentChatId?: any;
+    isSuperAdmin?: any;
     adminEmail?: string;
     setcurrentChatId?: (currentChatId: string) => void;
 }
