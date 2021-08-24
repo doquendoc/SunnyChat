@@ -111,7 +111,7 @@ class Chat extends React.Component<{}, IState> {
               dataSource={this.state.messageList}
             />
             <Input
-              disabled={this.context.currentChatId === BROADCAST_CHAT.email && this.context.isSuperAdmin() }
+              disabled={this.context.currentChatId === BROADCAST_CHAT.email && !this.context.isSuperAdmin() }
               value={this.state.message}
               onPressEnter={this.sendMessage}
               onChange={(e: any) => this.setState({ message: e.target.value })}
