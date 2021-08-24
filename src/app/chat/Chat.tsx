@@ -57,7 +57,7 @@ class Chat extends React.Component<{}, IState> {
     })
 
     await this.context.groupChanel.subscribe((message: any) => {
-      if (message.clientId === this.context.adminEmail) {
+      if (this.context.user.email !== this.context.adminEmail && message.clientId === this.context.adminEmail) {
           if(this.context.currentChatId === BROADCAST_CHAT.email){
               const messageList = this.state.messageList.slice()
               message.data.date = new Date(message.data.date)
@@ -65,7 +65,7 @@ class Chat extends React.Component<{}, IState> {
               messageList.push(message.data)
               this.setState({ messageList })
           }
-          else {
+          else if(this.context.adminEmail) {
               openNotificationWithIcon(
                   'info',
                   'Message',
