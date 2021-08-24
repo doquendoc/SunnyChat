@@ -3,7 +3,7 @@ import React from 'react'
 import {ChatList} from 'react-chat-elements'
 import 'react-chat-elements/dist/main.css'
 import {ChatUser} from '../../../shared/models/chat.model'
-import {ChatContext} from '../../../shared/providers/context/chat.provider'
+import {BROADCAST_CHAT, ChatContext} from '../../../shared/providers/context/chat.provider'
 import fakeUsers from '../../../shared/providers/context/fakeUsers.json'
 
 interface IProps {
@@ -31,8 +31,10 @@ class SChatList extends React.Component<IProps, {}> {
     //         debugger
     //       })
     //   })
-    const userList = fakeUsers.filter(user=> user.email !== this.context.user.email)
-    return userList.map(user => new ChatUser(user))
+    const userList: any = fakeUsers.filter(user=> user.email !== this.context.user.email)
+    userList.push(BROADCAST_CHAT);
+    userList.map((user: any) => new ChatUser(user))
+    return userList;
   }
 
   startConversation = (userData: ChatUser) => {
