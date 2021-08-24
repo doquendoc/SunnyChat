@@ -9,8 +9,10 @@ interface ISession {
 export interface IChatContext {
     activeChanel?: any;
     userChannel?: any;
+    groupChanel?: any;
     user?: IUser;
     currentChatId?: any;
+    adminEmail?: string;
     setcurrentChatId?: (currentChatId: string) => void;
 }
 
@@ -18,7 +20,7 @@ export interface IChatState {
     readonly userChannel?: any;
     activeChanel?: any
     currentChatId?: any;
-} 
+}
 
 
 export interface ISessionContext {

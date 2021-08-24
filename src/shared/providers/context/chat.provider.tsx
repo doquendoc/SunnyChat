@@ -26,13 +26,15 @@ export const ChatProvider = ({children}: { children: any }) => {
     }
     const client = new Ably.Realtime({authCallback})
     const [userChannel, setUserChannel] = useState<any>({})
-    const [currentChatId, setCurrentChatId] = useState<any>({})
     const [activeChanel, setActiveChanel] = useState<any>({})
+    const [groupChanel, setGroupChanel] = useState<any>({})
+    const [currentChatId, setCurrentChatId] = useState<any>({})
 
     useEffect(() => {
-        setUserChannel(client.channels.get(user.email))
-        setActiveChanel(client.channels.get(adminEmail))
-        setCurrentChatId(adminEmail)
+        setUserChannel(client.channels.get(user.email));
+        setActiveChanel(client.channels.get(adminEmail));
+        setGroupChanel(client.channels.get(BROADCAST_CHAT.email));
+        setCurrentChatId(adminEmail);
     }, [])
 
     useEffect(() => {
@@ -48,6 +50,8 @@ export const ChatProvider = ({children}: { children: any }) => {
                 userChannel,
                 user,
                 currentChatId,
+                groupChanel,
+                adminEmail,
                 setcurrentChatId: currentChatId => setCurrentChatId(currentChatId),
             }}
         >

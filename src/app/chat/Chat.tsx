@@ -8,7 +8,7 @@ import Ably from 'ably/promises'
 import { Col, Input, PageHeader, Row } from 'antd'
 import { Icon } from 'semantic-ui-react'
 import SChatList from './ChatList/ChatList'
-import { ChatContext, ChatProvider } from '../../shared/providers/context/chat.provider'
+import {BROADCAST_CHAT, ChatContext, ChatProvider} from '../../shared/providers/context/chat.provider'
 import { IUser } from '../../shared/helpers/hooks/interface.hooks'
 import { ChatUser } from '../../shared/models/chat.model'
 import fakeUsers from '../../shared/providers/context/fakeUsers.json'
@@ -56,19 +56,22 @@ class Chat extends React.Component<{}, IState> {
       this.setState({ messageList })
     })
 
-    await this.context.activeChanel.subscribe((message: any) => {
-      if (this.context.currentChatId === 'broadcast@sunnychat.cu') {
-        const messageList = this.state.messageList.slice()
-        message.data.date = new Date(message.data.date)
-        message.data.position = 'left'
-        messageList.push(message.data)
-        this.setState({ messageList })
-      } else {
-        openNotificationWithIcon(
-          'info',
-          'Message',
-          `El usuario ${message.clientId} te ha enviado un mensjae: ${message.data.text}`,
-        )
+    await this.context.groupChanel.subscribe((message: any) => {
+      if (message.clientId === this.context.adminEmail) {
+          if(this.context.currentChatId === BROADCAST_CHAT.email){
+              const messageList = this.state.messageList.slice()
+              message.data.date = new Date(message.data.date)
+              message.data.position = 'left'
+              messageList.push(message.data)
+              this.setState({ messageList })
+          }
+          else {
+              openNotificationWithIcon(
+                  'info',
+                  'Message',
+                  `El usuario ${message.clientId} te ha enviado un mensjae: ${message.data.text}`,
+              )
+          }
       }
     })
   }
