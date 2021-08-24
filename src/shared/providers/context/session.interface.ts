@@ -6,7 +6,23 @@ interface ISession {
     user?: IUser;
 }
 
+export interface IChatContext {
+    activeChanel?: any;
+    userChannel?: any;
+    user?: IUser;
+    currentChatId?: any;
+    setcurrentChatId?: (currentChatId: string) => void;
+}
+
+export interface IChatState {
+    readonly userChannel?: any;
+    activeChanel?: any
+    currentChatId?: any;
+} 
+
+
 export interface ISessionContext {
+    adminEmail?: string;
     isAuthenticated?: boolean
     loading?: boolean
     loginUser?: (credentials: ICrendentials) => Promise<IUser>;

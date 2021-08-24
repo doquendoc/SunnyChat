@@ -44,6 +44,7 @@ export interface ILogin {
     isAuthenticated?: boolean;
     loading?: boolean;
     user?: IUser;
+    adminEmail?: string;
 }
 
 export interface IUseLogin {
