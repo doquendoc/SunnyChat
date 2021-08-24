@@ -32,8 +32,8 @@ export const ChatProvider = ({children}: { children: any }) => {
 
     useEffect(() => {
         setUserChannel(client.channels.get(user.email))
-        setActiveChanel(adminEmail)
-        setCurrentChatId(client.channels.get(adminEmail))
+        setActiveChanel(client.channels.get(adminEmail))
+        setCurrentChatId(adminEmail)
     }, [])
 
     useEffect(() => {
