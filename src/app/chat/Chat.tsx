@@ -12,6 +12,7 @@ import {ChatContext, ChatProvider} from '../../shared/providers/context/chat.pro
 import {IUser} from "../../shared/helpers/hooks/interface.hooks";
 import {ChatUser} from "../../shared/models/chat.model";
 import fakeUsers from '../../shared/providers/context/fakeUsers.json'
+import {openNotificationWithIcon} from "../../shared/helpers/message.helpers";
 
 interface IState {
     messageList?: any[]
@@ -42,11 +43,11 @@ class Chat extends React.Component<{}, IState> {
         await this.context.userChannel.subscribe((message: any) => {
             const messageList = this.state.messageList.slice()
             message.data.date = new Date(message.data.date)
-            if (message.clientId === this.context.user.email) {
-                messageList.push(message.data)
-            } else {
+            if (message.clientId === this.context.currentChatId) {
                 message.data.position = 'left'
                 messageList.push(message.data)
+            } else {
+                openNotificationWithIcon('info', 'Message', `El usuario ${message.clientId} te ha enviado un mensjae: ${message.data.text}`)
             }
             this.setState({messageList})
         })
