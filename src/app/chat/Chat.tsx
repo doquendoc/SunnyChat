@@ -16,6 +16,7 @@ import { openNotificationWithIcon } from '../../shared/helpers/message.helpers'
 
 interface IState {
   messageList?: any[]
+  allMessageList?: any[]
   message?: string
   selectedUser: ChatUser
   userList?: ChatUser[]
@@ -34,6 +35,7 @@ class Chat extends React.Component<{}, IState> {
       selectedUser: new ChatUser(BROADCAST_CHAT),
       userList: [],
       activeUsers: [],
+      allMessageList: [],
     }
   }
 
@@ -103,34 +105,32 @@ class Chat extends React.Component<{}, IState> {
   }
 
   cleanChat = () => {
-    this.setState({
-      messageList: this.state.messageList.filter(
-        (item: any) => item === this.context.currentChatId || item === this.context.user.clientID,
-      ),
-    })
+    return this.state.allMessageList.filter(
+      (item: any) => item === this.context.currentChatId || item === this.context.user.clientID,
+    )
   }
 
   subscribe = async () => {
     await this.context.userChannel.subscribe((message: any) => {
-      const messageList = this.state.messageList.slice()
+      const allMessageList = this.state.allMessageList.slice()
       message.data.date = new Date(message.data.date)
       if (message.clientId === this.context.currentChatId) {
         message.data.position = 'left'
-        messageList.push(message.data)
       } else {
         openNotificationWithIcon('info', 'Message', `The user ${message.clientId} says: ${message.data.text}`)
       }
-      this.setState({ messageList })
+      allMessageList.push(message.data)
+      this.setState({ allMessageList })
     })
 
     await this.context.groupChanel.subscribe((message: any) => {
       if (this.context.user.email !== this.context.adminEmail && message.clientId === this.context.adminEmail) {
         if (this.context.currentChatId === BROADCAST_CHAT.email) {
-          const messageList = this.state.messageList.slice()
+          const allMessageList = this.state.allMessageList.slice()
           message.data.date = new Date(message.data.date)
           message.data.position = 'left'
-          messageList.push(message.data)
-          this.setState({ messageList })
+          allMessageList.push(message.data)
+          this.setState({ allMessageList })
         } else {
           openNotificationWithIcon('info', 'Message', `The admin ${message.clientId} says: ${message.data.text}`)
         }
@@ -146,7 +146,7 @@ class Chat extends React.Component<{}, IState> {
         text: message,
         type: 'text',
         position: 'right',
-        clientId: this.context.user.clientID,
+        clientId: this.context.user.email,
       }
       this.context.activeChanel.publish({ name: 'myEventName', data })
       const messageList = this.state.messageList
@@ -178,7 +178,7 @@ class Chat extends React.Component<{}, IState> {
               className="message-list !shadow-sm h-[400px] !bg-[#cdcdcd]"
               lockable={true}
               toBottomHeight={'100px'}
-              dataSource={this.state.messageList}
+              dataSource={this.cleanChat()}
             />
             <Input
               disabled={this.context.currentChatId === BROADCAST_CHAT.email && !this.context.isSuperAdmin()}
@@ -195,7 +195,6 @@ class Chat extends React.Component<{}, IState> {
         </Col>
         <Col span={12}>
           <SChatList
-            cleanMessageList={this.cleanChat}
             passUserData={selectedUser => {
               this.setState({ selectedUser })
             }}
