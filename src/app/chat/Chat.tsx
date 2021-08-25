@@ -106,7 +106,7 @@ class Chat extends React.Component<{}, IState> {
 
   cleanChat = () => {
     return this.state.allMessageList.filter(
-      (item: any) => item.clientId === this.context.currentChatId || item === this.context.user.email,
+      (item: any) => item.clientId === this.context.currentChatId || item.clientId === this.context.user.email,
     )
   }
 
