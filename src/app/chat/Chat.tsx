@@ -6,9 +6,9 @@ import 'react-chat-elements/dist/main.css'
 
 import Ably from 'ably/promises'
 import { Col, Input, PageHeader, Row } from 'antd'
-import { Icon } from 'semantic-ui-react'
+import { Icon, Label } from 'semantic-ui-react'
 import SChatList from './ChatList/ChatList'
-import {BROADCAST_CHAT, ChatContext, ChatProvider} from '../../shared/providers/context/chat.provider'
+import { BROADCAST_CHAT, ChatContext, ChatProvider } from '../../shared/providers/context/chat.provider'
 import { IUser } from '../../shared/helpers/hooks/interface.hooks'
 import { ChatUser } from '../../shared/models/chat.model'
 import fakeUsers from '../../shared/providers/context/fakeUsers.json'
@@ -18,11 +18,15 @@ interface IState {
   messageList?: any[]
   message?: string
   selectedUser: ChatUser
+  userList?: ChatUser[]
+  activeUsers?: string[]
 }
 
 class Chat extends React.Component<{}, IState> {
   static contextType = ChatContext
   declare context: React.ContextType<typeof ChatContext>
+
+  activeUsers: string[] = []
 
   constructor(args: any) {
     super(args)
@@ -30,13 +34,54 @@ class Chat extends React.Component<{}, IState> {
       messageList: [],
       message: '',
       selectedUser: new ChatUser(BROADCAST_CHAT),
+      userList: [],
+      activeUsers: [],
     }
   }
 
   componentDidMount() {
     setTimeout(() => {
       this.subscribe()
+      this.createUserList()
+      this.getPresence()
     }, 200)
+  }
+
+  getPresence = async () => {
+    const activeUsers: string[] = this.state.activeUsers
+    this.context.groupChanel.presence.get().then((responses: any) => {
+      responses.map((user: any) => {
+        if (!this.state.activeUsers.includes(user.clientId)) {
+          activeUsers.push(user.clientId)
+          openNotificationWithIcon('info', 'Message', `The user ${user.clientId} is ready to have a nice chat!`)
+          this.setState({
+            activeUsers: activeUsers,
+          })
+        }
+      })
+      this.setState({
+        activeUsers: activeUsers,
+      })
+    })
+
+    await this.context.groupChanel.presence.subscribe('enter', (member: any) => {
+      if (!this.state.activeUsers.includes(member.clientId)) {
+        activeUsers.push(member.clientId)
+        openNotificationWithIcon('info', 'Message', `The user ${member.clientId} is ready to have a nice chat!`)
+        this.setState({
+          activeUsers: activeUsers,
+        })
+      }
+    })
+  }
+
+  createUserList = (): void => {
+    const userList: any = fakeUsers.filter(user => user.email !== this.context.user.email)
+    userList.push(BROADCAST_CHAT)
+    this.setState({
+      userList: userList.map((user: any) => new ChatUser(user)),
+    })
+    console.log(userList)
   }
 
   subscribe = async () => {
@@ -47,31 +92,22 @@ class Chat extends React.Component<{}, IState> {
         message.data.position = 'left'
         messageList.push(message.data)
       } else {
-        openNotificationWithIcon(
-          'info',
-          'Message',
-          `El usuario ${message.clientId} te ha enviado un mensjae: ${message.data.text}`,
-        )
+        openNotificationWithIcon('info', 'Message', `The user ${message.clientId} says: ${message.data.text}`)
       }
       this.setState({ messageList })
     })
 
     await this.context.groupChanel.subscribe((message: any) => {
       if (this.context.user.email !== this.context.adminEmail && message.clientId === this.context.adminEmail) {
-          if(this.context.currentChatId === BROADCAST_CHAT.email){
-              const messageList = this.state.messageList.slice()
-              message.data.date = new Date(message.data.date)
-              message.data.position = 'left'
-              messageList.push(message.data)
-              this.setState({ messageList })
-          }
-          else {
-              openNotificationWithIcon(
-                  'info',
-                  'Message',
-                  `El usuario ${message.clientId} te ha enviado un mensjae: ${message.data.text}`,
-              )
-          }
+        if (this.context.currentChatId === BROADCAST_CHAT.email) {
+          const messageList = this.state.messageList.slice()
+          message.data.date = new Date(message.data.date)
+          message.data.position = 'left'
+          messageList.push(message.data)
+          this.setState({ messageList })
+        } else {
+          openNotificationWithIcon('info', 'Message', `The admin ${message.clientId} says: ${message.data.text}`)
+        }
       }
     })
   }
@@ -103,6 +139,13 @@ class Chat extends React.Component<{}, IState> {
               className="!border !bg-white"
               onBack={null}
               title={this.state.selectedUser.username}
+              extra={
+                this.state.activeUsers.includes(this.state.selectedUser.email)
+                  ? 'Online'
+                  : this.context.currentChatId == BROADCAST_CHAT.email
+                  ? 'Online'
+                  : 'Offline'
+              }
             />
             <MessageList
               className="message-list !shadow-sm h-[420px] !bg-[#cdcdcd]"
@@ -111,7 +154,7 @@ class Chat extends React.Component<{}, IState> {
               dataSource={this.state.messageList}
             />
             <Input
-              disabled={this.context.currentChatId === BROADCAST_CHAT.email && !this.context.isSuperAdmin() }
+              disabled={this.context.currentChatId === BROADCAST_CHAT.email && !this.context.isSuperAdmin()}
               value={this.state.message}
               onPressEnter={this.sendMessage}
               onChange={(e: any) => this.setState({ message: e.target.value })}
@@ -129,6 +172,7 @@ class Chat extends React.Component<{}, IState> {
             passUserData={selectedUser => {
               this.setState({ selectedUser })
             }}
+            userList={this.state.userList}
           />
         </Col>
       </Row>
