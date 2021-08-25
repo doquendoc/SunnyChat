@@ -149,9 +149,9 @@ class Chat extends React.Component<{}, IState> {
         clientId: this.context.user.email,
       }
       this.context.activeChanel.publish({ name: 'myEventName', data })
-      const messageList = this.state.messageList
-      messageList.push(data)
-      this.setState({ messageList })
+      const allMessageList = this.state.allMessageList
+      allMessageList.push(data)
+      this.setState({ allMessageList })
     }
     this.setState({ message: '' })
   }
