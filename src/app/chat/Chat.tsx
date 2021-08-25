@@ -102,7 +102,13 @@ class Chat extends React.Component<{}, IState> {
     })
   }
 
-  setActiveInUsers = () => {}
+  cleanChat = () => {
+    this.setState({
+      messageList: this.state.messageList.filter(
+        (item: any) => item === this.context.currentChatId || item === this.context.user.clientID,
+      ),
+    })
+  }
 
   subscribe = async () => {
     await this.context.userChannel.subscribe((message: any) => {
@@ -140,6 +146,7 @@ class Chat extends React.Component<{}, IState> {
         text: message,
         type: 'text',
         position: 'right',
+        clientId: this.context.user.clientID,
       }
       this.context.activeChanel.publish({ name: 'myEventName', data })
       const messageList = this.state.messageList
@@ -188,7 +195,7 @@ class Chat extends React.Component<{}, IState> {
         </Col>
         <Col span={12}>
           <SChatList
-            cleanMessageList={() => this.setState({ messageList: [] })}
+            cleanMessageList={this.cleanChat}
             passUserData={selectedUser => {
               this.setState({ selectedUser })
             }}
