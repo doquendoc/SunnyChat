@@ -50,7 +50,6 @@ class Chat extends React.Component<{}, IState> {
       responses.map((user: any) => {
         if (!this.state.activeUsers.includes(user.clientId)) {
           activeUsers.push(user.clientId)
-          openNotificationWithIcon('info', 'Message', `The user ${user.clientId} is ready to have a nice chat!`)
           this.setState(
             {
               activeUsers: activeUsers,
