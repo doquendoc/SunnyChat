@@ -26,8 +26,6 @@ class Chat extends React.Component<{}, IState> {
   static contextType = ChatContext
   declare context: React.ContextType<typeof ChatContext>
 
-  activeUsers: string[] = []
-
   constructor(args: any) {
     super(args)
     this.state = {
@@ -42,21 +40,23 @@ class Chat extends React.Component<{}, IState> {
   componentDidMount() {
     setTimeout(() => {
       this.subscribe()
-      this.createUserList()
       this.getPresence()
     }, 200)
   }
 
   getPresence = async () => {
-    const activeUsers: string[] = this.state.activeUsers
+    let activeUsers: string[] = this.state.activeUsers
     this.context.groupChanel.presence.get().then((responses: any) => {
       responses.map((user: any) => {
         if (!this.state.activeUsers.includes(user.clientId)) {
           activeUsers.push(user.clientId)
           openNotificationWithIcon('info', 'Message', `The user ${user.clientId} is ready to have a nice chat!`)
-          this.setState({
-            activeUsers: activeUsers,
-          })
+          this.setState(
+            {
+              activeUsers: activeUsers,
+            },
+            () => this.createUserList(),
+          )
         }
       })
       this.setState({
@@ -68,9 +68,25 @@ class Chat extends React.Component<{}, IState> {
       if (!this.state.activeUsers.includes(member.clientId)) {
         activeUsers.push(member.clientId)
         openNotificationWithIcon('info', 'Message', `The user ${member.clientId} is ready to have a nice chat!`)
-        this.setState({
-          activeUsers: activeUsers,
-        })
+        this.setState(
+          {
+            activeUsers: activeUsers,
+          },
+          () => this.createUserList(),
+        )
+      }
+    })
+
+    await this.context.groupChanel.presence.subscribe('leave', (member: any) => {
+      if (this.state.activeUsers.includes(member.clientId)) {
+        activeUsers = activeUsers.filter((email: any) => email != member.clientId)
+        openNotificationWithIcon('info', 'Message', `The user ${member.clientId} have better things to do!`)
+        this.setState(
+          {
+            activeUsers: activeUsers,
+          },
+          () => this.createUserList(),
+        )
       }
     })
   }
@@ -79,10 +95,15 @@ class Chat extends React.Component<{}, IState> {
     const userList: any = fakeUsers.filter(user => user.email !== this.context.user.email)
     userList.push(BROADCAST_CHAT)
     this.setState({
-      userList: userList.map((user: any) => new ChatUser(user)),
+      userList: userList.map((user: any) => {
+        const active = this.state.activeUsers.includes(user.email)
+        console.log(new ChatUser({ ...user, active }))
+        return new ChatUser({ ...user, active })
+      }),
     })
-    console.log(userList)
   }
+
+  setActiveInUsers = () => {}
 
   subscribe = async () => {
     await this.context.userChannel.subscribe((message: any) => {
@@ -135,10 +156,10 @@ class Chat extends React.Component<{}, IState> {
         <Col span={12}>
           <div className="mr-6 rounded-t-lg">
             <PageHeader
-              avatar={{ src: this.state.selectedUser.avatar }}
+              avatar={{ src: this.state.selectedUser.avatar, size: 60 }}
               className="!border !bg-white"
               onBack={null}
-              title={this.state.selectedUser.username}
+              title={this.state.selectedUser.name}
               extra={
                 this.state.activeUsers.includes(this.state.selectedUser.email)
                   ? 'Online'
@@ -148,7 +169,7 @@ class Chat extends React.Component<{}, IState> {
               }
             />
             <MessageList
-              className="message-list !shadow-sm h-[420px] !bg-[#cdcdcd]"
+              className="message-list !shadow-sm h-[400px] !bg-[#cdcdcd]"
               lockable={true}
               toBottomHeight={'100px'}
               dataSource={this.state.messageList}

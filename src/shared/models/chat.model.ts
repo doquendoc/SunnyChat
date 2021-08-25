@@ -13,7 +13,7 @@ export class ChatUser {
     unread: number;
     active: boolean;
   
-    constructor(attributes: any = null) {
+    constructor(attributes: Partial<ChatUser> = null) {
       if (attributes != null) {
         this.id = attributes.id != undefined ? attributes.id : '';
         this.email = attributes.email != undefined ? attributes.email : '';

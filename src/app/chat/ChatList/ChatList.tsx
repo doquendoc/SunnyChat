@@ -1,8 +1,9 @@
+import { PageHeader } from 'antd'
 import React from 'react'
 // @ts-ignore
 import { ChatList } from 'react-chat-elements'
 import 'react-chat-elements/dist/main.css'
-import { List, Image } from 'semantic-ui-react'
+import { List, Image, Label } from 'semantic-ui-react'
 import { ChatUser } from '../../../shared/models/chat.model'
 import { BROADCAST_CHAT, ChatContext } from '../../../shared/providers/context/chat.provider'
 import fakeUsers from '../../../shared/providers/context/fakeUsers.json'
@@ -40,17 +41,27 @@ class SChatList extends React.Component<IProps, {}> {
   }
 
   render() {
-    return (
-      <List animated verticalAlign="middle">
+    return [
+      <PageHeader className="!border !bg-white -mb-6" onBack={null} title="User List" />,
+      <List animated verticalAlign="middle" size="huge" celled className="bg-white !border-l !border-r">
         {this.props.userList.map((item: ChatUser) => (
-          <List.Item>
-            <Image avatar src={item.avatar} />
+          <List.Item
+            onClick={() => {
+              this.startConversation(item)
+            }}
+            className="!py-5 cursor-pointer"
+          >
+            <Label as="a" color={item.active ? 'green' : 'grey'} ribbon size="small">
+              {item.active ? 'Online' : 'Offline'}
+            </Label>
+            <Image avatar src={item.avatar} size="tiny" />
             <List.Content>
               <List.Header>{item.name}</List.Header>
+              <List.Description>{item.subtitle}</List.Description>
             </List.Content>
           </List.Item>
         ))}
-      </List>
+      </List>,
 
       // <ChatList
       //   className="chat-list"
@@ -59,7 +70,7 @@ class SChatList extends React.Component<IProps, {}> {
       //     this.startConversation(e)
       //   }}
       // />
-    )
+    ]
   }
 }
 

@@ -17,15 +17,15 @@ const App = () => {
       <Router>
         <QueryParamProvider ReactRouterRoute={Route}>
           {isAuthenticated && (
-            <AppLayout>
-              <ChatProvider>
+            <ChatProvider>
+              <AppLayout>
                 <Switch>
                   {routes.map(route => (
                     <Route exact path={route.routeTo} component={route.component} />
                   ))}
                 </Switch>
-              </ChatProvider>
-            </AppLayout>
+              </AppLayout>
+            </ChatProvider>
           )}
           {!isAuthenticated && (
             <Switch>
