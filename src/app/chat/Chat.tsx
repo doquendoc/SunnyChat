@@ -106,7 +106,9 @@ class Chat extends React.Component<{}, IState> {
 
   cleanChat = () => {
     return this.state.allMessageList.filter(
-      (item: any) => item.clientId === this.context.currentChatId || item.clientId === this.context.user.email,
+      (item: any) =>
+        item.clientId === this.context.currentChatId ||
+        (item.clientId === this.context.user.email && item.targgetId === this.context.currentChatId),
     )
   }
 
@@ -114,10 +116,11 @@ class Chat extends React.Component<{}, IState> {
     await this.context.userChannel.subscribe((message: any) => {
       const allMessageList = this.state.allMessageList.slice()
       message.data.date = new Date(message.data.date)
-      if (message.clientId === this.context.currentChatId) {
+      if (message.clientId !== this.context.user.email) {
         message.data.position = 'left'
-      } else {
-        openNotificationWithIcon('info', 'Message', `The user ${message.clientId} says: ${message.data.text}`)
+        if (message.clientId !== this.context.currentChatId) {
+          openNotificationWithIcon('info', 'Message', `The user ${message.clientId} says: ${message.data.text}`)
+        }
       }
       allMessageList.push(message.data)
       this.setState({ allMessageList })
@@ -147,6 +150,7 @@ class Chat extends React.Component<{}, IState> {
         type: 'text',
         position: 'right',
         clientId: this.context.user.email,
+        targgetId: this.context.currentChatId,
       }
       this.context.activeChanel.publish({ name: 'myEventName', data })
       const allMessageList = this.state.allMessageList
