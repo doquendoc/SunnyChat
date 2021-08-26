@@ -12,10 +12,10 @@ const WeatherWidget = ({ config, forecast }: any) => {
   const { setCompleteForecast, setForecastIdxFromCard }: any = useContext(WeatherContext)
 
   useEffect(() => {
-    setCompleteForecast(forecastList)
+    setCompleteForecast && setCompleteForecast(forecastList)
     console.log(forecastList)
     console.log(forecastIdx)
-    setForecastIdxFromCard(forecastIdx)
+    setForecastIdxFromCard && setForecastIdxFromCard(forecastIdx)
   }, [forecast, forecastIdx]) // notice the empty array here
 
   if (forecast !== undefined && forecast.length > 0) {

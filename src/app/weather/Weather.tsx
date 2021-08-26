@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import './Weather.scss'
 
 import WeatherWidget from './components/WeatherWidget'
 // mock data for testing without API call
 import testData from './testData.json'
-import { Spline } from '../graphs/TempDayGraph'
-import { Col, Row } from 'antd'
-import { SplineInversed } from '../graphs/TempHourGraph'
-import { statistics, tempPerDay, valuesForDailyGraph, valuesForGraphs } from '../../shared/helpers/graphs.helpers'
+import {Spline} from '../weather/graphs/TempDayGraph'
+import {Col, Row} from 'antd'
+import {SplineInversed} from '../weather/graphs/TempHourGraph'
+import {valuesForDailyGraph, valuesForGraphs} from '../../shared/helpers/graphs.helpers'
 
 const OPEN_WEATHER_MAP_KEY = 'cbab533431ca82dd7835d5e55f9f9a9b'
 

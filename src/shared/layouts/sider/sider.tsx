@@ -60,42 +60,8 @@ export const Sider = () => {
                                 <span className='dark:!text-slack !font-sans !font-medium'>{t('sider.Chat')}</span>
                             </Link>
                         </Menu.Item>,
-                        <Menu.Item
-                            className='cursor-pointer !mb-1 hover:!bg-indigo-100 dark:hover:!bg-gray-600'
-                            key="3"
-                            icon={<Icon size='big' name='user plus'
-                                        className='!text-gray-600 !leading-12 dark:!text-slack'/>}
-                            style={{marginBottom: -10}}
-                        >
-                            <Link to='/user/register'>
-                                <span
-                                    className='dark:!text-slack !font-sans !font-medium'>{t('sider.Register user')}</span>
-                            </Link>
-                        </Menu.Item>,
-                        <Menu.Item
-                            className='cursor-pointer !mb-1 hover:!bg-indigo-100 dark:hover:!bg-gray-600'
-                            key="4"
-                            icon={<Icon size='big' name='users'
-                                        className='!text-gray-600 !leading-12 dark:!text-slack'/>}
-                            style={{marginBottom: -10}}
-                        >
-                            <Link to='/user/list'>
-                                <span className='dark:!text-slack !font-sans !font-medium'>{t('sider.User list')}</span>
-                            </Link>
-                        </Menu.Item>
                     ] :
                     [
-                        <Menu.Item
-                            className='cursor-pointer !mb-1 hover:!bg-indigo-100 dark:hover:!bg-gray-600'
-                            key="5"
-                            icon={<Icon size='big' name='user circle outline'
-                                        className='!text-gray-600 !leading-12 dark:!text-slack'/>}
-                            style={{marginBottom: -10}}
-                        >
-                            <Link to='/chat'>
-                                <span className='dark:!text-slack !font-sans !font-medium'>{t('sider.User Connected')}</span>
-                            </Link>
-                        </Menu.Item>,
                         <Menu.Item
                             className='cursor-pointer !mb-1 hover:!bg-indigo-100 dark:hover:!bg-gray-600'
                             key="6"
@@ -103,7 +69,7 @@ export const Sider = () => {
                                         className='!text-gray-600 !leading-12 dark:!text-slack'/>}
                             style={{marginBottom: -10}}
                         >
-                            <Link to='/admin/broadcast'>
+                            <Link to='/chat'>
                                 <span className='dark:!text-slack !font-sans !font-medium'>{t('sider.Broadcast Chat')}</span>
                             </Link>
                         </Menu.Item>,
