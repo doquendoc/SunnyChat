@@ -18,7 +18,7 @@ export const BROADCAST_CHAT = {
 
 const channelOptions = {
   params: {
-    rewind: '10',
+    rewind: '0',
   },
 }
 
@@ -40,9 +40,9 @@ export const ChatProvider = ({ children }: { children: any }) => {
   const [currentChatId, setCurrentChatId] = useState<any>({})
 
   useEffect(() => {
-    const groupChat = client.channels.get(rewind + BROADCAST_CHAT.email, channelOptions)
-    setUserChannel(client.channels.get(rewind + user.email, channelOptions))
-    setActiveChanel(client.channels.get(rewind + BROADCAST_CHAT.email, channelOptions))
+    const groupChat = client.channels.get(BROADCAST_CHAT.email, channelOptions)
+    setUserChannel(client.channels.get(user.email, channelOptions))
+    setActiveChanel(client.channels.get(BROADCAST_CHAT.email, channelOptions))
     setGroupChanel(groupChat)
     groupChat.presence.enter()
     setCurrentChatId(BROADCAST_CHAT.email)

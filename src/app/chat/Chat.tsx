@@ -64,7 +64,6 @@ class Chat extends React.Component<{}, IState> {
     await this.context.groupChanel.presence.subscribe('enter', (member: any) => {
       if (!this.state.activeUsers.includes(member.clientId)) {
         activeUsers.push(member.clientId)
-        openNotificationWithIcon('info', 'Message', `The user ${member.clientId} is ready to have a nice chat!`)
         this.setState(
           {
             activeUsers: activeUsers,
