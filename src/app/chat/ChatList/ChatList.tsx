@@ -2,7 +2,7 @@ import {PageHeader} from 'antd'
 import React from 'react'
 // @ts-ignore
 import 'react-chat-elements/dist/main.css'
-import {Icon, Image, Label, List} from 'semantic-ui-react'
+import {Image, List} from 'semantic-ui-react'
 import {ChatUser} from '../../../shared/models/chat.model'
 import {ChatContext} from '../../../shared/providers/context/chat.provider'
 import {CheckCircleTwoTone, MinusCircleTwoTone} from '@ant-design/icons';
