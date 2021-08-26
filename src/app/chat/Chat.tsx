@@ -1,18 +1,14 @@
 import React from 'react'
-import { SessionContext } from '../../shared/providers/context/session.provider'
 // @ts-ignore
-import { MessageList } from 'react-chat-elements'
+import {MessageList} from 'react-chat-elements'
 import 'react-chat-elements/dist/main.css'
-
-import Ably from 'ably/promises'
-import { Col, Input, PageHeader, Row } from 'antd'
-import { Icon, Label } from 'semantic-ui-react'
+import {Col, Input, PageHeader, Row} from 'antd'
+import {Icon} from 'semantic-ui-react'
 import SChatList from './ChatList/ChatList'
-import { BROADCAST_CHAT, ChatContext, ChatProvider } from '../../shared/providers/context/chat.provider'
-import { IUser } from '../../shared/helpers/hooks/interface.hooks'
-import { ChatUser } from '../../shared/models/chat.model'
+import {BROADCAST_CHAT, ChatContext} from '../../shared/providers/context/chat.provider'
+import {ChatUser} from '../../shared/models/chat.model'
 import fakeUsers from '../../shared/providers/context/fakeUsers.json'
-import { openNotificationWithIcon } from '../../shared/helpers/message.helpers'
+import {openNotificationWithIcon} from '../../shared/helpers/message.helpers'
 
 interface IState {
   messageList?: any[]
@@ -98,8 +94,8 @@ class Chat extends React.Component<{}, IState> {
     this.setState({
       userList: userList.map((user: any) => {
         const active = this.state.activeUsers.includes(user.email)
-        console.log(new ChatUser({ ...user, active }))
-        return new ChatUser({ ...user, active })
+        const isGroup = user.email === BROADCAST_CHAT.email;
+        return new ChatUser({ ...user, active, isGroup })
       }),
     })
   }
@@ -107,7 +103,8 @@ class Chat extends React.Component<{}, IState> {
   cleanChat = () => {
     return this.state.allMessageList.filter(
       (item: any) =>
-        item.clientId === this.context.currentChatId ||
+        (item.clientId === this.context.currentChatId && item.targgetId !== BROADCAST_CHAT.email) ||
+        (item.targgetId === this.context.currentChatId && !this.context.isSuperAdmin()) ||
         (item.clientId === this.context.user.email && item.targgetId === this.context.currentChatId),
     )
   }
