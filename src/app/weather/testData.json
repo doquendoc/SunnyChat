@@ -216,9 +216,9 @@
       "main": {
         "temp": 10.53,
         "temp_min": 10.53,
-        "temp_max": 10.53,
+        "temp_max": 10.55555555555553,
         "pressure": 1027.92,
-        "sea_level": 1035.53,
+        "sea_level": 105555555535.53,
         "grnd_level": 1027.92,
         "humidity": 100,
         "temp_kf": 0
