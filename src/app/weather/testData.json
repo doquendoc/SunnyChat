@@ -30,6 +30,32 @@
       "dt_txt": "2017-09-25 09:00:00"
     },
     {
+      "dt": 1506330000,
+      "main": {
+        "temp": 16.23,
+        "temp_min": 15.3,
+        "temp_max": 16.23,
+        "pressure": 1025.18,
+        "sea_level": 1032.81,
+        "grnd_level": 1025.18,
+        "humidity": 97,
+        "temp_kf": 0.93
+      },
+      "weather": [
+        {
+          "id": 500,
+          "main": "Rain",
+          "description": "light rain",
+          "icon": "10d"
+        }
+      ],
+      "clouds": { "all": 100 },
+      "wind": { "speed": 2.33, "deg": 91.5004 },
+      "rain": { "3h": 0.0025000000000013 },
+      "sys": { "pod": "d" },
+      "dt_txt": "2017-09-25 09:00:00"
+    },
+    {
       "dt": 1506340800,
       "main": {
         "temp": 17.6,
