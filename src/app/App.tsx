@@ -10,6 +10,7 @@ import { SessionContext } from '../shared/providers/context/session.provider'
 import { ISessionContext } from '../shared/providers/context/session.interface'
 import { ChatProvider } from '../shared/providers/context/chat.provider'
 
+//aslkalskajlskjalsk
 const App = () => {
   const { isAuthenticated }: any = useContext<ISessionContext>(SessionContext)
   return (
